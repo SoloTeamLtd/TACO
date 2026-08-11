@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: taco-app
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tacodb
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    enabled: true
