@@ -1,15 +1,15 @@
 databaseChangeLog:
   - changeSet:
-      id: 1-create-ingredient-type-table
+      id: 1-create-ingredient-types-table
       author: IvanA
       preConditions:
         - onFail: MARK_RAN # Если таблица есть, Liquibase просто пометит шаг как выполненный
           not:
             tableExists:
-              tableName: ingredient_type
+              tableName: ingredient_types
       changes:
         - createTable:
-            tableName: ingredient_type
+            tableName: ingredient_types
             columns:
               - column:
                   name: id
@@ -19,16 +19,16 @@ databaseChangeLog:
                     nullable: false
 
   - changeSet:
-      id: 2-create-ingredient-table
+      id: 2-create-ingredients-table
       author: IvanA
       preConditions:
         - onFail: MARK_RAN
           not:
             tableExists:
-              tableName: ingredient
+              tableName: ingredients
       changes:
         - createTable:
-            tableName: ingredient
+            tableName: ingredients
             columns:
               - column:
                   name: id
@@ -49,19 +49,19 @@ databaseChangeLog:
                     # Внешний ключ выносим в отдельный changeset или добавляем условие,
                     # чтобы он не пытался создаться дважды, если таблица уже была.
   - changeSet:
-      id: 2b-add-fk-ingredient
+      id: 2b-add-fk-ingredients
       author: IvanA
       preConditions:
         - onFail: MARK_RAN
           not:
             foreignKeyConstraintExists:
-              foreignKeyTableName: ingredient
-              foreignKeyConstraintName: fk_ingredient_type
+              foreignKeyTableName: ingredients
+              foreignKeyConstraintName: fk_ingredient_types
 
       changes:
         - addForeignKeyConstraint:
-            baseTableName: ingredient
+            baseTableName: ingredients
             baseColumnNames: type_id
-            constraintName: fk_ingredient_type
-            referencedTableName: ingredient_type
+            constraintName: fk_ingredient_types
+            referencedTableName: ingredient_types
             referencedColumnNames: id

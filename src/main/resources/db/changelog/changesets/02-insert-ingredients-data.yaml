@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 3-load-initial-ingredient-type
+      id: 3-load-initial-ingredient-types
       author: IvanA
       changes:
         - loadData:
-            tableName: ingredient_type
-            file: db/changelog/data/ingredient_type.csv
+            tableName: ingredient_types
+            file: db/changelog/data/ingredient_types.csv
             primaryKey: id
             columns:
               - column:
@@ -13,12 +13,12 @@ databaseChangeLog:
                   type: STRING
                   header: id
   - changeSet:
-      id: 4-load-initial-ingredient
+      id: 4-load-initial-ingredients
       author: IvanA
       changes:
         - loadData:
-            tableName: ingredient
-            file: db/changelog/data/ingredient.csv
+            tableName: ingredients
+            file: db/changelog/data/ingredients.csv
             primaryKey: id
             columns:
               - column:
