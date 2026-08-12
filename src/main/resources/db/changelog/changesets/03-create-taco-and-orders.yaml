@@ -1,2 +1,73 @@
 databaseChangeLog:
-  -
+  - changeSet:
+      id: 5-create-taco-order-table
+      author: IvanA
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: taco_orders
+      changes:
+        - createTable:
+            tableName: taco_orders
+            columns:
+              - column: {name: id, type: BIGINT, constraints: { primaryKey: true, nullable: false }, autoIncrement: true }
+              - column: {name: delivery_name, type: VARCHAR(100), constraints: { nullable: false }}
+              - column: {name: delivery_street, type: VARCHAR(100), constraints: { nullable: false }}
+              - column: {name: delivery_city, type: VARCHAR(50), constraints: { nullable: false }}
+              - column: {name: delivery_state, type: VARCHAR(50), constraints: { nullable: false }}
+              - column: {name: delivery_zip, type: VARCHAR(30), constraints: { nullable: false }}
+              - column: {name: cc_number, type: VARCHAR(30), constraints: { nullable: false }}
+              - column: {name: cc_expiration, type: VARCHAR(5), constraints: { nullable: false }}
+              - column: {name: cc_cvv, type: VARCHAR(3), constraints: { nullable: false }}
+
+  - changeSet:
+      id: 6-create-taco-table
+      author: IvanA
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: taco
+      changes:
+        - createTable:
+            tableName: taco
+            columns:
+              - column: {name: id, type: BIGINT, constraints: { primaryKey: true, nullable: false }, autoIncrement: true }
+              - column: {name: name, type: VARCHAR(50), constraints: { nullable: false }}
+              - column: {name: taco_order_id, type: BIGINT}
+        - addForeignKeyConstraint:
+            baseTableName: taco
+            baseColumnNames: taco_order_id
+            constraintName: fk_taco_taco_order
+            referencedTableName: taco_orders
+            referencedColumnNames: taco_id
+  - changeSet:
+      id: 7-create-taco-ingredients-join-table
+      author: IvanA
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: taco-ingredients
+      changes:
+        - createTable:
+            tableName: taco_ingredients
+            columns:
+              - column: {name: taco_id, type: BIGINT, constraints: { nullable: false }}
+              - column: {name: ingredient_id, type: VARCHAR(4), constraints: { nullable: false }}
+        - addPrimaryKey:
+            tableName: taco_ingredients
+            columnNames: taco_id, ingredient_id
+        - addForeignKeyConstraint:
+            baseTableName: taco_ingredients
+            baseColumnNames: taco_id
+            constraintName: fk_taco_ingredients_taco
+            referencedTableName: taco
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: taco_ingredients
+            baseColumnNames: ingredient_id
+            constraintName: fk_taco_ingredients_ingredients
+            referencedTableName: ingredients
+            referencedColumnNames: id
