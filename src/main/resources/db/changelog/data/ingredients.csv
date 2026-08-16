@@ -1,0 +1,10 @@
+id, name, type_id
+FLTO,Flour Tortilla,WRAP
+COTO,Corn Tortilla,WRAP
+GRBF,Ground Beef,PROTEIN
+TMTO,Diced Tomatoes,VEGGIES
+LTTC,Lettuce,VEGGIES
+CHED,Cheddar,CHEESE
+JACK,Monterrey Jack,CHEESE
+SLSA,Salsa,SAUCE
+SLSR,Sour Cream,SAUCE

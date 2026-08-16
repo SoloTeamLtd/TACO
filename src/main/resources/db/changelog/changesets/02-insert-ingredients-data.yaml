@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3-load-initial-ingredient-types
+      author: IvanA
+      changes:
+        - loadData:
+            tableName: ingredient_types
+            file: db/changelog/data/ingredient_types.csv
+            primaryKey: id
+            columns:
+              - column:
+                  name: id
+                  type: STRING
+                  header: id
+  - changeSet:
+      id: 4-load-initial-ingredients
+      author: IvanA
+      changes:
+        - loadData:
+            tableName: ingredients
+            file: db/changelog/data/ingredients.csv
+            primaryKey: id
+            columns:
+              - column:
+                  name: id
+                  type: STRING
+                  header: id
+              - column:
+                  name: name
+                  type: STRING
+                  header: name
+              - column:
+                  name: type_id
+                  type: STRING
+                  header: type_id
