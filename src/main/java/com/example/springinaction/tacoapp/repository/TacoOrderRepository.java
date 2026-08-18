@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TaoOrderRepository extends CrudRepository<TacoOrder, Long> {
+public interface TacoOrderRepository extends CrudRepository<TacoOrder, Long> {
 }

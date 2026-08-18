@@ -41,7 +41,8 @@ databaseChangeLog:
             baseColumnNames: taco_order_id
             constraintName: fk_taco_taco_order
             referencedTableName: taco_orders
-            referencedColumnNames: taco_id
+            referencedColumnNames: id
+
   - changeSet:
       id: 7-create-taco-ingredients-join-table
       author: IvanA
