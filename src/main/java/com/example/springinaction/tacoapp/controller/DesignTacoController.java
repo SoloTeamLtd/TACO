@@ -57,6 +57,8 @@ public class DesignTacoController {
         }
 
         tacoOrder.getTacos().add(taco);
+        log.info("Processing taco: {} ", taco);
+
         return "redirect:/orders/current";
     }
 }

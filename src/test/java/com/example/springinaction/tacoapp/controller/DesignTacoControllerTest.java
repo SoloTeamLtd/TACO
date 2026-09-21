@@ -54,9 +54,10 @@ class DesignTacoControllerTest {
                 .andExpect(view().name("design"))
                 .andExpect(model().attributeExists("wrap"))
                 .andExpect(model().attributeExists("protein"))
-                .andExpect(model().attributeExists("chess"))
+                .andExpect(model().attributeExists("cheese"))
                 .andExpect(model().attributeExists("taco"));
     }
 
     //TODO include processTaco
+
 }
