@@ -91,7 +91,7 @@ header {
 }
 
 /* Поле ввода */
-.form-group input {
+.form-group input[type="text"] {
     padding: 10px;
     border: 1px solid #ccc; /* Серая рамка */
     border-radius: 4px;

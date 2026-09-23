@@ -7,10 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Slf4j
@@ -21,6 +18,11 @@ import org.springframework.web.bind.support.SessionStatus;
 public class TacoOrderController {
 
     private final TacoOrderRepository tacoOrderRepository;
+
+    @ModelAttribute(name = "tacoOrder")
+    public TacoOrder order() {
+        return new TacoOrder();
+    }
 
     @GetMapping("/current")
     public String orderForm() {
@@ -37,6 +39,6 @@ public class TacoOrderController {
         tacoOrderRepository.save(tacoOrder);
         log.info("Order submitted: {}", tacoOrder);
         sessionStatus.setComplete();
-        return "/redirect";
+        return "redirect:/";
     }
 }

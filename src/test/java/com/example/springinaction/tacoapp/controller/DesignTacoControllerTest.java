@@ -41,7 +41,8 @@ class DesignTacoControllerTest {
         ingredients = Arrays.asList(
                 new Ingredient("FLTO", "Flour Tortilla", IngredientType.WRAP),
                 new Ingredient("GRBF", "Ground Beef", IngredientType.PROTEIN),
-                new Ingredient("CHED", "Cheddar", IngredientType.CHEESE)
+                new Ingredient("CHED", "Cheddar", IngredientType.CHEESE),
+                new Ingredient("SLSA", "Salsa", IngredientType.SAUCE)
         );
     }
 
@@ -55,6 +56,7 @@ class DesignTacoControllerTest {
                 .andExpect(model().attributeExists("wrap"))
                 .andExpect(model().attributeExists("protein"))
                 .andExpect(model().attributeExists("cheese"))
+                .andExpect(model().attributeExists("sauce"))
                 .andExpect(model().attributeExists("taco"));
     }
 
