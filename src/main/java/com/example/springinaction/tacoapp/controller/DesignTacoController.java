@@ -26,6 +26,11 @@ public class DesignTacoController {
 
     private final IngredientRepository ingredientRepository;
 
+    @ModelAttribute(name = "tacoOrder")
+    public TacoOrder order() {
+        return new TacoOrder();
+    }
+
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
         List<Ingredient> ingredients = new ArrayList<>();
@@ -35,11 +40,6 @@ public class DesignTacoController {
             model.addAttribute(type.name().toLowerCase(),
                     filterByType(ingredients, type));
         }
-    }
-
-    @ModelAttribute(name = "tacoOrder")
-    public TacoOrder order() {
-        return new TacoOrder();
     }
 
     @GetMapping
@@ -57,7 +57,6 @@ public class DesignTacoController {
     @PostMapping
     public String processTaco(@Valid @ModelAttribute("taco") Taco taco, Errors errors,
                               @ModelAttribute TacoOrder tacoOrder) {
-
         if (errors.hasErrors()) {
             return "design";
         }
