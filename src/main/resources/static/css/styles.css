@@ -1,0 +1,98 @@
+:root {
+	--prymary-color: #e67e22;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --danger-color: #e74c3c;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; /* Сбрасываем внешние отступы браузера по умолчанию */
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+header {
+    background-color: var(--dark-color); /* Фон */
+    color: white; /* Текст */
+    padding: 20px; /* Внутренние отступы, чтобы текст не прилипал к краям */
+    text-align: center; /* Центрируем заголовок */
+}
+
+/* Главный блок-контейнер, в котором лежит контент страниц */
+.container {
+    max-width: 900px;
+    margin: 30px auto; /* Отступы 30, Центрируем */
+    padding: 20px; /* Отступы внутренние */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Легкая тень */
+}
+
+/* Flexbox сетка для блоков с ингредиентами */
+.grid {
+    display: flex; /* Включаем технологию Flexbox для выстраивания элементов */
+    flex-wrap: wrap; /* Если блоки не влезают в одну строку, они переносятся на следующую */
+    gap: 20px; /* Расстояние между карточками */
+}
+
+.grid-box {
+    /* flex: flex-grow | flex-shrink | flex-basis */
+    /* Элемент может расти (1), сжиматься (1) и базово занимает 50% ширины минус gap */
+    flex: 1 1 calc(5% - 20px);
+    min-width: 280px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+/* Строка с конкретным ингредиентом (чекбокс + текст) */
+.ingredient-row {
+    display: flex; /* Выстраиваем чекбокс и текст в линию */
+    align-items: center; /* Выравниваем их ровно по вертикальному центру */
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.btn {
+    background-color: var(--prymary-color);
+    color: white;
+    border: none;
+    padding: 12px 20px; /* Размеры кнопки */
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s; /* Плавное изменение цвета при наведении за 0.3 секунды */
+}
+
+/* Эффект при наведении мыши на кнопку */
+.btn:hover {
+    background-color: #d35400; /* Цвет становится чуть темнее */
+}
+
+/* Блок для текста ошибок валидации (например, "Введите имя") */
+.validation-error {
+    color: var(--danger-color);
+    font-size: 14px;
+    margin-top: 5px; /* Отступ от поля ввода сверху */
+}
+
+/* Обертка для поля формы (лейбл + инпут) */
+.form-group {
+    margin-bottom: 15px; /* Отступ между полями формы */
+    display: flex;
+    flex-direction: column; /* Элементы внутри выстраиваются вертикально (друг под другом) */
+}
+
+/* Подпись к полю ввода */
+.form-group label {
+    margin-bottom: 5px; /* Отступ до самого инпута */
+    font-weight: bold; /* Жирный шрифт */
+}
+
+/* Поле ввода */
+.form-group input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc; /* Серая рамка */
+    border-radius: 4px;
+}

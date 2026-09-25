@@ -3,7 +3,7 @@
 DROP TABLE IF EXISTS databasechangelog, databasechangeloglock, ingredients,
     ingredient_types CASCADE;
 
-/*
+
 CREATE TABLE IF NOT EXISTS ingredient_types (
     id VARCHAR(10) NOT NULL,
     PRIMARY KEY (id)
@@ -35,4 +35,3 @@ VALUES
     ('JACK', 'Monterrey Jack', 'CHEESE'),
     ('SLSA', 'Salsa', 'SAUCE'),
     ('SLSR', 'Sour Cream', 'SAUCE');
-*/
