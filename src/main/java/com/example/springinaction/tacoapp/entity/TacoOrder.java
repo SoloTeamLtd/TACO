@@ -50,4 +50,10 @@ public class TacoOrder {
     @JoinColumn(name = "taco_order_id") // Задает FK прямо в таблице taco
     @Valid // Go to validate in every Taco
     private List<Taco> tacos = new ArrayList<>();
+
+//    @Enumerated(EnumType.STRING)
+//    private OrderStatus status = OrderStatus.CREATED;
+//
+//    @Version
+//    private Long version; //Оптимистическая блокировка
 }
