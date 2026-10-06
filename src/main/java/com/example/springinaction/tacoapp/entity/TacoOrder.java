@@ -51,9 +51,9 @@ public class TacoOrder {
     @Valid // Go to validate in every Taco
     private List<Taco> tacos = new ArrayList<>();
 
-//    @Enumerated(EnumType.STRING)
-//    private OrderStatus status = OrderStatus.CREATED;
-//
-//    @Version
-//    private Long version; //Оптимистическая блокировка
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status = OrderStatus.CREATED;
+
+    @Version
+    private Long version; //Оптимистическая блокировка, управляется Hibernate автоматически (начиная с 1)
 }
