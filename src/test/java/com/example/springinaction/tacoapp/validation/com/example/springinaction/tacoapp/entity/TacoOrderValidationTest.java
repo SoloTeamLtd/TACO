@@ -1,6 +1,6 @@
 package com.example.springinaction.tacoapp.validation.com.example.springinaction.tacoapp.entity;
 
-import com.example.springinaction.tacoapp.entity.TacoOrder;
+import com.example.springinaction.tacoapp.domain.customer.entity.TacoOrder;
 import jakarta.validation.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

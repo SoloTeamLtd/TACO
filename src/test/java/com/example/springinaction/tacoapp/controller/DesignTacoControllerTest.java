@@ -1,10 +1,11 @@
 package com.example.springinaction.tacoapp.controller;
 
-import com.example.springinaction.tacoapp.entity.Ingredient;
-import com.example.springinaction.tacoapp.entity.IngredientType;
-import com.example.springinaction.tacoapp.repository.IngredientRepository;
-import com.example.springinaction.tacoapp.repository.TacoOrderRepository;
-import com.example.springinaction.tacoapp.repository.TacoRepository;
+import com.example.springinaction.tacoapp.domain.customer.controller.DesignTacoController;
+import com.example.springinaction.tacoapp.domain.shared.entity.Ingredient;
+import com.example.springinaction.tacoapp.domain.shared.entity.IngredientType;
+import com.example.springinaction.tacoapp.domain.shared.repository.IngredientRepository;
+import com.example.springinaction.tacoapp.domain.customer.repository.TacoOrderRepository;
+import com.example.springinaction.tacoapp.domain.customer.repository.TacoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

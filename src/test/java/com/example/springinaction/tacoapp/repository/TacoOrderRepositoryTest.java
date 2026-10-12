@@ -1,8 +1,10 @@
 package com.example.springinaction.tacoapp.repository;
 
-import com.example.springinaction.tacoapp.entity.Ingredient;
-import com.example.springinaction.tacoapp.entity.Taco;
-import com.example.springinaction.tacoapp.entity.TacoOrder;
+import com.example.springinaction.tacoapp.domain.customer.repository.TacoOrderRepository;
+import com.example.springinaction.tacoapp.domain.shared.entity.Ingredient;
+import com.example.springinaction.tacoapp.domain.customer.entity.Taco;
+import com.example.springinaction.tacoapp.domain.customer.entity.TacoOrder;
+import com.example.springinaction.tacoapp.domain.shared.repository.IngredientRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

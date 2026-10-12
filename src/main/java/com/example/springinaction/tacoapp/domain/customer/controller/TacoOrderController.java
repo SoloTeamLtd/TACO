@@ -1,7 +1,9 @@
-package com.example.springinaction.tacoapp.controller;
+package com.example.springinaction.tacoapp.domain.customer.controller;
 
-import com.example.springinaction.tacoapp.entity.TacoOrder;
-import com.example.springinaction.tacoapp.repository.TacoOrderRepository;
+import com.example.springinaction.tacoapp.domain.customer.entity.CustomerStatus;
+import com.example.springinaction.tacoapp.domain.customer.entity.OrderStatus;
+import com.example.springinaction.tacoapp.domain.customer.entity.TacoOrder;
+import com.example.springinaction.tacoapp.domain.customer.repository.TacoOrderRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,5 +42,14 @@ public class TacoOrderController {
         log.info("Order submitted: {}", tacoOrder);
         sessionStatus.setComplete();
         return "redirect:/";
+    }
+
+    public CustomerStatus mapToCustomerStatus(OrderStatus internalStatus) {
+        return switch (internalStatus) {
+            case CREATED, COOKING, READY -> CustomerStatus.PREPARING;
+            case DELIVERING -> CustomerStatus.SHIPPED;
+            case DELIVERED -> CustomerStatus.ARRIVED;
+            case CANCELLED -> CustomerStatus.CANCELLED;
+        };
     }
 }

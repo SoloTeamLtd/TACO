@@ -1,5 +1,6 @@
-package com.example.springinaction.tacoapp.entity;
+package com.example.springinaction.tacoapp.domain.customer.entity;
 
+import com.example.springinaction.tacoapp.domain.shared.entity.Ingredient;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

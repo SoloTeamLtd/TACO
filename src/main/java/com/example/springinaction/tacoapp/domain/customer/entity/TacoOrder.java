@@ -1,4 +1,4 @@
-package com.example.springinaction.tacoapp.entity;
+package com.example.springinaction.tacoapp.domain.customer.entity;
 
 import com.example.springinaction.tacoapp.validation.FutureOrPresentCard;
 import jakarta.persistence.*;
@@ -55,5 +55,6 @@ public class TacoOrder {
     private OrderStatus status = OrderStatus.CREATED;
 
     @Version
-    private Long version; //Оптимистическая блокировка, управляется Hibernate автоматически (начиная с 1)
+    private Long version; //Оптимистическая блокировка,
+        // управляется Hibernate автоматически (начиная с 1, если занят то 0)
 }

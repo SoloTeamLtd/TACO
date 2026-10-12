@@ -1,4 +1,4 @@
-package com.example.springinaction.tacoapp.entity;
+package com.example.springinaction.tacoapp.domain.shared.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
