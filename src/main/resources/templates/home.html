@@ -7,6 +7,10 @@
     <link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 <body>
+    <!-- Видит только юзер и админ -->
+    <a th:href="@{/management/kitchen}" th:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')">
+        <button>Панель Кухни</button>
+    </a>
     <header style="display: flex; justify-content: space-between; align-items: center; padding: 20px 40px;">
         <h1 style="margin: 0;">Welcome to Taco Cloud!</h1>
         <div>
@@ -31,7 +35,8 @@
             <img th:src="@{/images/TacoCloud.png}" alt="Taco Cloud Logo" style="max-width: 200px; border-radius: 8px;">
         </div>
         <br>
-        <a th:href="@{/design}" class="btn" style="text-decoration: none; font-size: 18px; padding: 15px 30px;">Design your taco</a>
+        <!-- Видит обычный юзер и админ -->
+        <a th:href="@{/design}" th:authorize="hasAnyRole('USER', 'ADMIN')" class="btn" style="text-decoration: none; font-size: 18px; padding: 15px 30px;">Design your taco</a>
     </div>
 </body>
 </html>

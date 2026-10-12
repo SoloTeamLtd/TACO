@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/management/delivery")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_DELIVERY')")
+@PreAuthorize("hasAuthority('ROLE_DELIVERY')")
 public class DeliveryController {
 
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/management/kitchen")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_KITCHEN')")
+@PreAuthorize("hasAuthority('ROLE_KITCHEN')")
 public class KitchenManagerController {
 
     private final KitchenOrderService kitchenOrderService;

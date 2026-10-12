@@ -17,6 +17,10 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Видит только кухня и админ -->
+                <a th:href="@{/management/kitchen}" th:authorize="hasAnyAuthority('ROLE_KITCHEN', 'ROLE_ADMIN')">
+                    <button>Панель Кухни</button>
+                </a>
                 <!-- Цикл по заказам со статусом CREATED -->
                 <tr th:each="order : ${orders}">
                     <td th:text="${order.id}">1</td>

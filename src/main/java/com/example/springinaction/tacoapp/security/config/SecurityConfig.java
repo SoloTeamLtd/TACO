@@ -14,6 +14,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests( auth -> auth
+                        .requestMatchers("/management/kitchen/**").hasAnyAuthority("ROLE_KITCHEN", "ROLE_ADMIN")
+                        .requestMatchers("/management/delivery/**").hasAnyAuthority("ROLE_DELIVERY", "ROLE_ADMIN")
+                        .requestMatchers("/design", "/orderForm").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+
                         .requestMatchers("/auth/phone", "/login", "/design","/css/**", "/images/**").permitAll()
                         .requestMatchers("/orders/**").authenticated()
                         .anyRequest().authenticated()
