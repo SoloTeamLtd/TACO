@@ -1,0 +1,28 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Скачиваем актуальный код репозитория на виртуальную машину
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Устанавливаем и настраиваем Java-окружение (JDK 17)
+      - name: Set up JDK 17
+        uses: actions/actions-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      # 3. Собираем проект с помощью Maven и запускаем все JUnit-тесты
+      - name: Build with Maven
+        run: mvn -B clean package

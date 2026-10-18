@@ -46,12 +46,26 @@ header {
     border-radius: 6px;
 }
 
+.grid-box h3 {
+    margin-top: 0;
+    border-bottom: 2px solid var(--prymary-color);
+    padding-bottom: 8px;
+    color: var(--dark-color);
+}
+
 /* Строка с конкретным ингредиентом (чекбокс + текст) */
 .ingredient-row {
     display: flex; /* Выстраиваем чекбокс и текст в линию */
     align-items: center; /* Выравниваем их ровно по вертикальному центру */
     margin-bottom: 10px;
     gap: 10px;
+}
+
+.ingredient-row input [type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
 }
 
 .btn {

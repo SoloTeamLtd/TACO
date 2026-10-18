@@ -1,6 +1,6 @@
 package com.example.springinaction.tacoapp.security.config;
 
-import com.example.springinaction.tacoapp.domain.shared.repository.UserRepository;
+import com.example.springinaction.tacoapp.core.domain.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +23,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/auth/phfone")
+                        .loginPage("/auth/phone")
                         .loginProcessingUrl("/login")
                         .usernameParameter("phone")
                         .defaultSuccessUrl("/orders/current", true)

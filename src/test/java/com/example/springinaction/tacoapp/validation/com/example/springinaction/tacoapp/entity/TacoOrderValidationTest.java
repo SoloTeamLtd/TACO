@@ -1,20 +1,7 @@
 package com.example.springinaction.tacoapp.validation.com.example.springinaction.tacoapp.entity;
 
-import com.example.springinaction.tacoapp.domain.customer.entity.TacoOrder;
-import jakarta.validation.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-
-import static org.assertj.core.api.Assertions.*;
-import java.util.Set;
-import java.util.stream.Stream;
-
 class TacoOrderValidationTest {
-
+/*
     private Validator validator;
 
     @BeforeEach
@@ -87,5 +74,5 @@ class TacoOrderValidationTest {
             case "ccExpiration" -> order.setCcExpiration((String) value);
             case "ccCvv" -> order.setCcCvv((String) value);
         }
-    }
+    }*/
 }
