@@ -38,7 +38,7 @@ public class KitchenController {
     }
 
     @PostMapping("/complete/(id)")
-    public String completetCooking(@PathVariable Long id) {
+    public String completeCooking(@PathVariable Long id) {
         kitchenService.completeCooking(id);
         return "redirect:/management/kitchen";
     }

@@ -4,6 +4,7 @@ import com.example.springinaction.tacoapp.core.domain.entity.CustomerStatus;
 import com.example.springinaction.tacoapp.core.domain.entity.OrderStatus;
 import com.example.springinaction.tacoapp.core.domain.entity.TacoOrder;
 import com.example.springinaction.tacoapp.order.repository.TacoOrderRepository;
+import com.example.springinaction.tacoapp.order.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes("tacoOrder")
 public class TacoOrderController {
 
-    private final TacoOrderRepository tacoOrderRepository;
+    private final OrderService orderService;
 
     @ModelAttribute(name = "tacoOrder")
     public TacoOrder order() {
@@ -38,18 +39,8 @@ public class TacoOrderController {
             return "orderForm";
         }
 
-        tacoOrderRepository.save(tacoOrder);
-        log.info("Order submitted: {}", tacoOrder);
+        orderService.createOrder(tacoOrder);
         sessionStatus.setComplete();
         return "redirect:/";
-    }
-
-    public CustomerStatus mapToCustomerStatus(OrderStatus internalStatus) {
-        return switch (internalStatus) {
-            case CREATED, COOKING, READY -> CustomerStatus.PREPARING;
-            case DELIVERING -> CustomerStatus.SHIPPED;
-            case DELIVERED -> CustomerStatus.ARRIVED;
-            case CANCELLED -> CustomerStatus.CANCELLED;
-        };
     }
 }

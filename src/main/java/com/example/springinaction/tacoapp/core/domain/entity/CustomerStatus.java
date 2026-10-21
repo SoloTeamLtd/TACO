@@ -4,5 +4,5 @@ public enum CustomerStatus {
     PREPARING,
     SHIPPED,
     ARRIVED,
-    CANCELLED
+    VOIDED
 }

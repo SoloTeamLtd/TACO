@@ -14,10 +14,10 @@ public class DeliveryService {
     private final OrderService orderService;
 
     public void takeOrder(Long orderId) {
-        orderService.changeTacoOrderStatus(orderId, OrderStatus.READY, OrderStatus.DELIVERING);
+        orderService.changeTacoOrderStatus(orderId, OrderStatus.DELIVERING);
     }
 
     public void completeDelivery(Long orderId) {
-        orderService.changeTacoOrderStatus(orderId, OrderStatus.DELIVERING, OrderStatus.DELIVERED);
+        orderService.changeTacoOrderStatus(orderId, OrderStatus.DELIVERED);
     }
 }

@@ -51,8 +51,11 @@ public class TacoOrder {
     @Valid // Go to validate in every Taco
     private List<Taco> tacos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderStatusHistory> statusHistory = new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.CREATED;
+    private OrderStatus status;
 
     @Version
     private Long version; //Оптимистическая блокировка,

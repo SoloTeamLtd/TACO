@@ -13,20 +13,25 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
-@Table(name = "user")
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
+@Table(name = "users") // "user" — зарезервированное слово в PostgreSQL, поэтому пишем "users"
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String username;
+    // Имя пользователя для отображения в интерфейсе Thymeleaf (например, "Алексей")
+    private String name;
 
+    // Наш главный уникальный идентификатор (логин), по которому ищем в БД
+    @Column(unique = true, nullable = false)
+    private String phone;
+
+    // Здесь будет храниться хэш пароля, сгенерированный через BCryptPasswordEncoder
     @Column(nullable = false)
     private String password;
 
@@ -34,9 +39,37 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
+    /**
+     * Говорим Spring Security, что уникальным логином (username) для авторизации
+     * в нашем приложении является номер телефона.
+     */
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+    public String getUsername() {
+        return this.phone;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(this.role.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // Пароль/токен не просрочены
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Активные заказы — Кухня</title>
+  <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+  <h1>🌮 Taco App — Панель Управления Кухней</h1>
+</header>
+
+<div class="container">
+  <!-- Блок красивого вывода ошибок от GlobalExceptionHandler -->
+  <div th:if="${errorMessage}" class="error-banner">
+    <span th:text="${errorMessage}">Текст ошибки</span>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2>🔥 Заказы в процессе приготовления</h2>
+    <div>
+      <a th:href="@{/management/kitchen/queue}" class="btn">В очередь новых</a>
+      <a th:href="@{/home}" class="btn" style="background-color: var(--dark-color);">На главную</a>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID заказа</th>
+      <th>Что готовим (Рецепт и Ингредиенты)</th>
+      <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Цикл по заказам со статусом COOKING -->
+    <tr th:each="order : ${orders_cooking}">
+      <td th:text="${order.id}">123</td>
+      <td>
+        <div th:each="taco : ${order.tacos}" style="margin-bottom: 15px;">
+          <h4 th:text="${taco.name}" style="margin: 0 0 5px 0; color: var(--primary-color);">Название Тако</h4>
+          <ul style="margin: 0; padding-left: 20px; font-size: 14px;">
+            <li th:each="ingredient : ${taco.ingredients}" th:text="${ingredient.name}">Ингредиент</li>
+          </ul>
+        </div>
+      </td>
+      <td>
+        <!-- Форма переводит заказ в статус READY (Готов к доставке) -->
+        <form method="POST" th:action="@{/management/kitchen/complete/{id}(id=${order.id})}">
+          <button class="btn" style="background-color: #2ecc71;" type="submit">Приготовлено ✓</button>
+        </form>
+      </td>
+    </tr>
+    <!-- Если на кухне ничего не готовится -->
+    <tr th:if="${#lists.isEmpty(orders_cooking)}">
+      <td colspan="3" style="text-align: center; color: #7f8c8d; padding: 20px;">
+        Сейчас ничего не готовится. Отдыхаем!
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

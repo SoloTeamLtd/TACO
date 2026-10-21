@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>TacoApp - Подтверждение входа</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<header>
+  <h1>Безопасность TacoApp</h1>
+</header>
+
+<div class="container">
+  <h2>Двухфакторная аутентификация</h2>
+
+  <p class="info-text">
+    На ваш номер телефона отправлено SMS-сообщение с кодом подтверждения.
+    Пожалуйста, введите его для безопасного входа в личный кабинет.
+  </p>
+
+  <div class="error-banner" th:if="${param.error}">
+    Ошибка: Неверный код подтверждения. Пожалуйста, проверьте цифры и попробуйте снова.
+  </div>
+
+  <form th:action="@{/auth/verify-sms}" method="post">
+
+    <div class="form-group">
+      <label for="code">Код подтверждения из СМС</label>
+      <input type="text" id="code" name="code" class="sms-input" placeholder="0000" maxlength="4"
+             required autocomplete="off" autofocus />
+    </div>
+
+    <button type="submit" class="btn">Подтвердить и войти</button>
+  </form>
+</div>
+
+</body>
+</html>

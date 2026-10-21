@@ -6,6 +6,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -14,6 +15,25 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    // Ловим и ошибки отсутствия (404), и ошибки бизнес-логики (400)
+    @ExceptionHandler({IllegalArgumentException.class, IllegalStateException.class})
+    public String handleKitchenErrors(RuntimeException ex, RedirectAttributes redirectAttributes) {
+
+        // FlashAttributes сохраняются в сессии только на ОДИН следующий запрос (после редиректа)
+        redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
+
+        return "redirect:/management/kitchen";
+    }
+
+    // Глобальный перехватчик для критических ошибок (500)
+    @ExceptionHandler(Exception.class)
+    public String handleGlobalException(Exception ex, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("errorMessage",
+                "Произошла внутренняя ошибка сервера. Пожалуйста, попробуйте позже.");
+        return "redirect:/management/kitchen";
+    }
+
+    /*
     // 1. Ловим ошибки отсутствия данных (ID не найден в БД)
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleNotFound(IllegalArgumentException ex) {
@@ -71,5 +91,5 @@ public class GlobalExceptionHandler {
                 null
         );
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    }*/
 }

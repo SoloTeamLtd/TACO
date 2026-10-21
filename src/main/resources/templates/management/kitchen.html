@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Очередь заказов — Кухня</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h1>🌮 Taco App — Панель Управления Кухней</h1>
+</header>
+
+<div class="container">
+    <!-- Блок красивого вывода ошибок от GlobalExceptionHandler -->
+    <div th:if="${errorMessage}" class="error-banner">
+        <span th:text="${errorMessage}">Текст ошибки</span>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Входящие заказы (Очередь)</h2>
+        <div sec:authorize="hasAnyAuthority('ROLE_KITCHEN', 'ROLE_ADMIN')">
+            <!-- Кнопка навигации на страницу активных заказов -->
+            <a th:href="@{/management/kitchen}" class="btn">К активным готовящимся</a>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID заказа</th>
+            <th>Состав Тако</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Цикл по заказам со статусом CREATED -->
+        <tr th:each="order : ${orders_created}">
+            <td th:text="${order.id}">1</td>
+            <td>
+                <div th:each="taco : ${order.tacos}" style="margin-bottom: 5px;">
+                    <strong th:text="${taco.name}" style="color: var(--primary-color);">Супер Тако</strong>
+                    <span style="font-size: 14px; color: #7f8c8d;">
+                                (<span th:each="ing, iter : ${taco.ingredients}"
+                                       th:text="${ing.name} + ${!iter.last ? ', ' : ''}"></span>)
+                            </span>
+                </div>
+            </td>
+            <td>
+                <!-- Форма отправляет POST-запрос на перевод в статус COOKING -->
+                <form method="POST" th:action="@{/management/kitchen/start/{id}(id=${order.id})}">
+                    <button class="btn" type="submit">Взять в работу</button>
+                </form>
+            </td>
+        </tr>
+        <!-- Если очередь пуста -->
+        <tr th:if="${#lists.isEmpty(orders_created)}">
+            <td colspan="3" style="text-align: center; color: #7f8c8d; padding: 20px;">
+                Новых заказов пока нет. Ждем!
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
