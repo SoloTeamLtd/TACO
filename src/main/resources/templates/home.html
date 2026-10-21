@@ -1,42 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org"
-      xmlns:background-color="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Taco Cloud</title>
+    <!-- Подключаем твой файл стилей -->
     <link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 <body>
-    <!-- Видит только юзер и админ -->
-    <a th:href="@{/management/kitchen}" th:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')">
-        <button>Панель Кухни</button>
-    </a>
-    <header style="display: flex; justify-content: space-between; align-items: center; padding: 20px 40px;">
-        <h1 style="margin: 0;">Welcome to Taco Cloud!</h1>
-        <div>
-            <!-- Если пользователь НЕ авторизован -->
-            <div sec:authorize="isAnonymous()">
-                <a th:href="@{/auth/phone}" class="btn" style="text-decoration: none; background-color: #7f8c8d;">Login by Phone</a>
-            </div>
-            <!-- Если пользователь авторизован -->
-            <div sec:authorize="isAuthenticated()" style="color: white;">
-                <span style="margin-right: 15px;">Hello, <strong sec:authentication="name">User</strong>!</span>
-                <form th:action="@{/logout}" method="POST" style="display: inline;">
-                    <button type="submit" class="btn" style="background: none; border: none; padding: 0; color: #dbf0f9;
-                     cursor: pointer; text-decoration: underline; font-size: 14px;">Logout</button>
-                </form>
-            </div>
-        </div>
-    </header>
 
-    <div class="container" style="text-align: center;">
-        <h2>The best tacos in the cloud matrix</h2>
-        <div style="margin: 20px 0;">
-            <img th:src="@{/images/TacoCloud.png}" alt="Taco Cloud Logo" style="max-width: 200px; border-radius: 8px;">
+<!-- Навигационная панель / Шапка -->
+<header class="main-header">
+    <h1 class="logo-title">Welcome to Taco Cloud!</h1>
+    <div class="auth-zone">
+        <!-- Если пользователь НЕ авторизован совсем ИЛИ находится в процессе 2FA (ROLE_PRE_AUTH) -->
+        <div sec:authorize="isAnonymous() or hasAuthority('ROLE_PRE_AUTH')">
+            <a th:href="@{/auth/login}" class="btn btn-secondary">Login by Phone</a>
         </div>
-        <br>
-        <!-- Видит обычный юзер и админ -->
-        <a th:href="@{/design}" th:authorize="hasAnyRole('USER', 'ADMIN')" class="btn" style="text-decoration: none; font-size: 18px; padding: 15px 30px;">Design your taco</a>
+
+        <!-- Если пользователь полностью авторизован (прошел оба этапа 2FA) -->
+        <!-- Избегаем показа имени пользователя во время ROLE_PRE_AUTH -->
+        <div sec:authorize="isAuthenticated() and !hasAuthority('ROLE_PRE_AUTH')" class="user-profile">
+                <span class="welcome-text">
+                    Hello, <strong sec:authentication="principal.username">User</strong>!
+                </span>
+            <!-- Кнопка Logout оформлена как POST-форма для защиты от CSRF -->
+            <form th:action="@{/logout}" method="POST" class="logout-form">
+                <button type="submit" class="btn-link">Logout</button>
+            </form>
+        </div>
     </div>
+</header>
+
+<!-- Основной контент страницы -->
+<div class="container text-center">
+    <h2>The best tacos in the cloud matrix</h2>
+
+    <div class="logo-wrapper">
+        <img th:src="@{/images/TacoCloud.png}" alt="Taco Cloud Logo" class="main-logo">
+    </div>
+
+    <!-- Панель навигации по внутренним кухням (динамическая под роли) -->
+    <div class="action-grid">
+
+        <!-- Ссылка на сборку тако: Видит только полноценный USER или ADMIN -->
+        <div sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')">
+            <a th:href="@{/design}" class="btn btn-primary">Design your taco</a>
+        </div>
+
+        <!-- Панель Кухни: Видит только повар KITCHEN или ADMIN -->
+        <div sec:authorize="hasAnyAuthority('ROLE_KITCHEN', 'ROLE_ADMIN')">
+            <a th:href="@{/management/kitchen}" class="btn btn-warning">Панель Кухни</a>
+        </div>
+
+        <!-- Панель Доставки: Видит только курьер DELIVERY или ADMIN -->
+        <div sec:authorize="hasAnyAuthority('ROLE_DELIVERY', 'ROLE_ADMIN')">
+            <a th:href="@{/management/delivery}" class="btn btn-info">Панель Доставки</a>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>

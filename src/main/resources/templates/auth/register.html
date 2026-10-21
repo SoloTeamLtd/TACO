@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Регистрация в Taco Cloud</title>
+  <link th:href="@{/css/auth.css}" rel="stylesheet">
+</head>
+<body class="auth-body">
+
+<div class="auth-card">
+  <h2>Регистрация</h2>
+
+  <div class="error-box" th:if="${error}" th:text="${error}"></div>
+
+  <form th:action="@{/auth/register}" th:object="${registrationForm}" method="post">
+    <div class="form-group">
+      <label for="username">Ваше имя</label>
+      <input type="text" id="username" name="username" placeholder="Алексей" required autofocus />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Номер телефона</label>
+      <input type="text" id="phone" name="phone" placeholder="+79991234567" required />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Пароль</label>
+      <input type="password" id="password" name="password" placeholder="••••••••" required />
+    </div>
+
+    <button type="submit" class="auth-btn btn-blue">Создать аккаунт</button>
+  </form>
+
+  <div class="auth-links">
+    Уже зарегистрированы? <a th:href="@{/auth/login}">Войти</a>
+  </div>
+</div>
+
+</body>
+</html>

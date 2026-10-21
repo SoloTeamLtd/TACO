@@ -23,7 +23,7 @@ public class SecurityConfig {
                         .requestMatchers("/design", "/orderForm", "/orders/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
 
                         // Открытые страницы
-                        .requestMatchers("/auth/login", "/auth/register", "/css/**", "/images/**").permitAll()
+                        .requestMatchers("/auth/login", "/auth/register", "/css/auth.css", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -35,6 +35,9 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/auth/send-sms-interceptor", true)
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/auth/login"))
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/access-denied")
+                )
                 .build();
     }
 
