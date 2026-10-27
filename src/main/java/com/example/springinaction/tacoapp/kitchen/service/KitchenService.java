@@ -1,7 +1,7 @@
 package com.example.springinaction.tacoapp.kitchen.service;
 
-import com.example.springinaction.tacoapp.core.domain.entity.taco.OrderStatus;
-import com.example.springinaction.tacoapp.core.domain.entity.taco.TacoOrder;
+import com.example.springinaction.tacoapp.order.domain.OrderStatus;
+import com.example.springinaction.tacoapp.order.domain.TacoOrder;
 import com.example.springinaction.tacoapp.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

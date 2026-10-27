@@ -20,6 +20,11 @@ public class KitchenController {
 
     private final KitchenService kitchenService;
 
+    @GetMapping
+    public String defaultKitchenRedirect() {
+        return "redirect:/management/kitchen/queue";
+    }
+
     @GetMapping("/queue")
     public String showKitchenQueue(Model model) {
         log.info("Запрос очереди входящих заказов для кухни.");

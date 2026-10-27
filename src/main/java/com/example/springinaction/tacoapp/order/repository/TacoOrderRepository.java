@@ -1,7 +1,7 @@
 package com.example.springinaction.tacoapp.order.repository;
 
-import com.example.springinaction.tacoapp.core.domain.entity.taco.OrderStatus;
-import com.example.springinaction.tacoapp.core.domain.entity.taco.TacoOrder;
+import com.example.springinaction.tacoapp.order.domain.OrderStatus;
+import com.example.springinaction.tacoapp.order.domain.TacoOrder;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

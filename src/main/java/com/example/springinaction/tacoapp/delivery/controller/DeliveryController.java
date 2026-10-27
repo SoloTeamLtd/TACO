@@ -20,6 +20,11 @@ public class DeliveryController {
 
     private final DeliveryService deliveryService;
 
+    @GetMapping
+    public String defaultDeliveryRedirect() {
+        return "redirect:/management/delivery/queue";
+    }
+
     @GetMapping("/queue")
     public String showDeliveryQueue(Model model) {
         log.info("Запрос очереди заказов для доставки.");

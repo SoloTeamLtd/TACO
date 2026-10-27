@@ -1,6 +1,6 @@
 package com.example.springinaction.tacoapp.order.repository;
 
-import com.example.springinaction.tacoapp.core.domain.entity.taco.OrderStatusHistory;
+import com.example.springinaction.tacoapp.order.domain.OrderStatusHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

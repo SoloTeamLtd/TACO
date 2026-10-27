@@ -1,6 +1,6 @@
 package com.example.springinaction.tacoapp.order.controller;
 
-import com.example.springinaction.tacoapp.core.domain.entity.taco.TacoOrder;
+import com.example.springinaction.tacoapp.order.domain.TacoOrder;
 import com.example.springinaction.tacoapp.order.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

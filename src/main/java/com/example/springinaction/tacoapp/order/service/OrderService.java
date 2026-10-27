@@ -1,11 +1,11 @@
 package com.example.springinaction.tacoapp.order.service;
 
-import com.example.springinaction.tacoapp.core.domain.entity.taco.OrderStatus;
-import com.example.springinaction.tacoapp.core.domain.entity.taco.OrderStatusHistory;
-import com.example.springinaction.tacoapp.core.domain.entity.taco.TacoOrder;
+import com.example.springinaction.tacoapp.order.domain.OrderStatus;
+import com.example.springinaction.tacoapp.order.domain.OrderStatusHistory;
+import com.example.springinaction.tacoapp.order.domain.TacoOrder;
 import com.example.springinaction.tacoapp.order.repository.OrderStatusHistoryRepository;
 import com.example.springinaction.tacoapp.order.repository.TacoOrderRepository;
-import com.example.springinaction.tacoapp.security.SecurityContextHelper;
+import com.example.springinaction.tacoapp.auth.service.SecurityContextHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

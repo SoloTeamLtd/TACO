@@ -23,7 +23,10 @@ import java.util.Map;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "com.example.springinaction.tacoapp.core.domain.repository.taco",
+        basePackages = {
+                "com.example.springinaction.tacoapp.order.repository",
+                "com.example.springinaction.tacoapp.ingredient.repository"
+        },
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager"
 )
@@ -32,6 +35,7 @@ public class TacoDataConfig {
     @Primary
     @Bean
     @ConfigurationProperties("app.datasource.taco")
+//    @ConfigurationProperties("app.config")
     public DataSourceProperties tacoDataSourceProperties() {
         return new DataSourceProperties();
     }
@@ -71,7 +75,10 @@ public class TacoDataConfig {
 
         return builder
                 .dataSource(dataSource)
-                .packages("com.example.springinaction.tacoapp.core.domain.entity.taco")
+                .packages (
+                        "com.example.springinaction.tacoapp.order.domain",
+                        "com.example.springinaction.tacoapp.ingredient.domain"
+                )
                 .persistenceUnit("taco")
                 .properties(properties)
                 .build();

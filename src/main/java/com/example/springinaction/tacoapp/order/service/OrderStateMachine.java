@@ -1,8 +1,8 @@
 package com.example.springinaction.tacoapp.order.service;
 
-import com.example.springinaction.tacoapp.core.domain.entity.taco.OrderStatus;
-import com.example.springinaction.tacoapp.core.domain.entity.taco.OrderStatusHistory;
-import com.example.springinaction.tacoapp.core.domain.entity.taco.TacoOrder;
+import com.example.springinaction.tacoapp.order.domain.OrderStatus;
+import com.example.springinaction.tacoapp.order.domain.OrderStatusHistory;
+import com.example.springinaction.tacoapp.order.domain.TacoOrder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;

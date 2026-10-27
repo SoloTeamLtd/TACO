@@ -9,13 +9,13 @@ databaseChangeLog:
         - tableIsEmpty:
             tableName: users
       changes:
-        - loadData:
-            tableName: users
-            file: db/changelog/data/users.csv
-            primaryKey: id
-            columns:
-              - column: { name: id, type: NUMERIC, header: id }
-              - column: { name: name, type: STRING, header: name }
-              - column: { name: phone, type: STRING, header: phone }
-              - column: { name: password, type: STRING, header: password }
-              - column: { name: role, type: STRING, header: role }
+        - sql:
+            dbms: postgresql
+            sql: |
+              CREATE EXTENSION IF NOT EXISTS pgcrypto;
+              
+              INSERT INTO users (id, name, phone, password, role) VALUES 
+              (1, 'Admin', '+79991112233', crypt('password', gen_salt('bf', 10)), 'ROLE_ADMIN'),
+              (2, 'User', '+79994445566', crypt('password', gen_salt('bf', 10)), 'ROLE_USER'),
+              (3, 'Chef', '+79997778899', crypt('password', gen_salt('bf', 10)), 'ROLE_KITCHEN'),
+              (4, 'Courier', '+79990001122', crypt('password', gen_salt('bf', 10)), 'ROLE_DELIVERY');

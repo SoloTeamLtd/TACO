@@ -21,7 +21,7 @@ import java.util.Map;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "com.example.springinaction.tacoapp.core.domain.repository.auth",
+        basePackages = "com.example.springinaction.tacoapp.auth.repository",
         entityManagerFactoryRef = "authEntityManagerFactory",
         transactionManagerRef = "authTransactionManager"
 )
@@ -29,6 +29,7 @@ public class AuthDataConfig {
 
     @Bean
     @ConfigurationProperties("app.datasource.auth")
+//    @ConfigurationProperties("app.auth.config")
     public DataSourceProperties authDataSourceProperties() {
         return new DataSourceProperties();
     }
@@ -64,7 +65,7 @@ public class AuthDataConfig {
 
         return builder
                 .dataSource(dataSource)
-                .packages("com.example.springinaction.tacoapp.core.domain.entity.auth")
+                .packages("com.example.springinaction.tacoapp.auth.domain")
                 .persistenceUnit("auth")
                 .properties(properties)
                 .build();
