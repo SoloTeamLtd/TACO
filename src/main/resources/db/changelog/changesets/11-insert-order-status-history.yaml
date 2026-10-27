@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 11-load-initial-order-status-history
+      author: IvanA
+      changes:
+        - loadData:
+            tableName: order_status_history
+            file: db/changelog/data/order_status_history.csv
+            primaryKey: id
+            columns:
+              - column: { name: id, type: NUMERIC, header: id }
+              - column: { name: taco_order_id, type: NUMERIC, header: taco_order_id }
+              - column: { name: from_status, type: STRING, header: from_status }
+              - column: { name: to_status, type: STRING, header: to_status }
+              - column: { name: changed_at, type: COMPUTED, header: changed_at }
+              - column: { name: changed_by, type: STRING, header: changed_by }
+

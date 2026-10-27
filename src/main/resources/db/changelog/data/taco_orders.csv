@@ -1,0 +1,4 @@
+id,delivery_name,delivery_street,delivery_city,delivery_state,delivery_zip,cc_number,cc_expiration,cc_cvv,status,version
+1,John Doe,123 Main St,New York,NY,10001,1234567890123456,12/28,123,CREATED,0
+2,Jane Smith,456 Oak St,Los Angeles,CA,90001,9876543210987654,11/27,456,COOKING,0
+3,Alex Jones,789 Pine St,Chicago,IL,60601,1111222233334444,05/29,789,DELIVERED,0

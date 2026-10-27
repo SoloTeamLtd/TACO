@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 14-load-initial-users
+      author: IvanA
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExists:
+            tableName: users
+        - tableIsEmpty:
+            tableName: users
+      changes:
+        - loadData:
+            tableName: users
+            file: db/changelog/data/users.csv
+            primaryKey: id
+            columns:
+              - column: { name: id, type: NUMERIC, header: id }
+              - column: { name: name, type: STRING, header: name }
+              - column: { name: phone, type: STRING, header: phone }
+              - column: { name: password, type: STRING, header: password }
+              - column: { name: role, type: STRING, header: role }

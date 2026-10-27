@@ -19,8 +19,8 @@ import java.util.Map;
 // оставляем на rest
 @Component
 @AllArgsConstructor
-public class JWTFilter extends OncePerRequestFilter {
-
+public class JWTFilter /*extends OncePerRequestFilter*/ {
+/*
     private final JWTUtil jwtUtil;
 
     @Override
@@ -70,5 +70,5 @@ public class JWTFilter extends OncePerRequestFilter {
 
         // Передаем запрос дальше по цепочке фильтров
         filterChain.doFilter(request, response);
-    }
+    }*/
 }

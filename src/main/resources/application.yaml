@@ -1,7 +1,6 @@
 spring:
   application:
     name: taco-app
-
   jpa:
     hibernate:
       ddl-auto: validate
@@ -9,23 +8,23 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
   liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.yaml
-    enabled: true
+    enabled: false
 
 app:
   datasource:
     taco:
-      jdbc-url: jdbc:postgresql://localhost:5432/tacodb
+      url: jdbc:postgresql://localhost:5432/tacodb
       username: postgres
       password: postgres
       driver-class-name: org.postgresql.Driver
+      changelog: classpath:db/changelog/db.changelog-taco.yaml
     auth:
-      jdbc-url: jdbc:postgresql://localhost:5432/auth_db
+      url: jdbc:postgresql://localhost:5432/auth_db
       username: postgres
       password: postgres
       driver-class-name: org.postgresql.Driver
+      changelog: classpath:db/changelog/db.changelog-auth.yaml
 
 jwt:
   secret: ${JWT_SECRET:local_development_secret_key_minimum_256_bits_length_taco_delivery}

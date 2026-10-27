@@ -25,7 +25,6 @@ public class GlobalExceptionHandler {
         return "redirect:/management/kitchen";
     }
 
-    // Глобальный перехватчик для критических ошибок (500)
     @ExceptionHandler(Exception.class)
     public String handleGlobalException(Exception ex, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("errorMessage",

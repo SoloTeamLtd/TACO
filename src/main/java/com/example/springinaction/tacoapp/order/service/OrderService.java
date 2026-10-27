@@ -1,8 +1,8 @@
 package com.example.springinaction.tacoapp.order.service;
 
-import com.example.springinaction.tacoapp.core.domain.entity.OrderStatus;
-import com.example.springinaction.tacoapp.core.domain.entity.OrderStatusHistory;
-import com.example.springinaction.tacoapp.core.domain.entity.TacoOrder;
+import com.example.springinaction.tacoapp.core.domain.entity.taco.OrderStatus;
+import com.example.springinaction.tacoapp.core.domain.entity.taco.OrderStatusHistory;
+import com.example.springinaction.tacoapp.core.domain.entity.taco.TacoOrder;
 import com.example.springinaction.tacoapp.order.repository.OrderStatusHistoryRepository;
 import com.example.springinaction.tacoapp.order.repository.TacoOrderRepository;
 import com.example.springinaction.tacoapp.security.SecurityContextHelper;

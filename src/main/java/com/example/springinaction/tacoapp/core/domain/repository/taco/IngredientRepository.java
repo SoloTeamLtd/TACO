@@ -1,6 +1,6 @@
-package com.example.springinaction.tacoapp.core.domain.repository;
+package com.example.springinaction.tacoapp.core.domain.repository.taco;
 
-import com.example.springinaction.tacoapp.core.domain.entity.Ingredient;
+import com.example.springinaction.tacoapp.core.domain.entity.taco.Ingredient;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

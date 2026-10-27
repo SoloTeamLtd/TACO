@@ -21,7 +21,7 @@
         <h2>Входящие заказы (Очередь)</h2>
         <div sec:authorize="hasAnyAuthority('ROLE_KITCHEN', 'ROLE_ADMIN')">
             <!-- Кнопка навигации на страницу активных заказов -->
-            <a th:href="@{/management/kitchen}" class="btn">К активным готовящимся</a>
+            <a th:href="@{/templates/management/kitchen}" class="btn">К активным готовящимся</a>
         </div>
     </div>
 

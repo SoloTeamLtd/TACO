@@ -1,9 +1,8 @@
 package com.example.springinaction.tacoapp.kitchen.controller;
 
 import com.example.springinaction.tacoapp.kitchen.service.KitchenService;
-import com.example.springinaction.tacoapp.order.service.OrderService;
-import com.example.springinaction.tacoapp.core.domain.entity.OrderStatus;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,34 +11,40 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
 @RequestMapping("/management/kitchen")
 @RequiredArgsConstructor
 @PreAuthorize("hasAuthority('ROLE_KITCHEN')")
+@Slf4j
 public class KitchenController {
 
     private final KitchenService kitchenService;
-    private final OrderService orderService;
 
-    @GetMapping
-    public String showKitchenPage(Model model) {
-        model.addAttribute("orders_created",
-                orderService.getOrdersWithStatus(OrderStatus.CREATED));
-        model.addAttribute("orders_cooking",
-                orderService.getOrdersWithStatus(OrderStatus.COOKING));
-        return "kitchen";
+    @GetMapping("/queue")
+    public String showKitchenQueue(Model model) {
+        log.info("Запрос очереди входящих заказов для кухни.");
+        model.addAttribute("orders_created", kitchenService.getOrdersInQueue());
+        return "kitchen_queue";
     }
 
-    @PostMapping("/start/(id)")
+    @GetMapping("/active")
+    public String showActiveKitchenOrders(Model model) {
+        log.info("Запрос активных заказов на кухне.");
+        model.addAttribute("orders_cooking", kitchenService.getActiveOrders());
+        return "kitchen_active";
+    }
+
+    @PostMapping("/start/{id}")
     public String startCooking(@PathVariable Long id) {
+        log.info("Кухня берет в работу заказ ID: {}", id);
         kitchenService.startCooking(id);
-        return "redirect:/management/kitchen";
+        return "redirect:/management/kitchen/active";
     }
 
-    @PostMapping("/complete/(id)")
+    @PostMapping("/complete/{id}")
     public String completeCooking(@PathVariable Long id) {
+        log.info("Кухня завершила приготовление заказа ID: {}", id);
         kitchenService.completeCooking(id);
-        return "redirect:/management/kitchen";
+        return "redirect:/management/kitchen/queue";
     }
 }

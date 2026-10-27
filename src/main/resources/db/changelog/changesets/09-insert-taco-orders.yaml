@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 9-load-initial-taco-orders
+      author: IvanA
+      changes:
+        - loadData:
+            tableName: taco_orders
+            file: db/changelog/data/taco_orders.csv
+            primaryKey: id
+            columns:
+              - column: { name: id, type: NUMERIC, header: id }
+              - column: { name: delivery_name, type: STRING, header: delivery_name }
+              - column: { name: delivery_street, type: STRING, header: delivery_street }
+              - column: { name: delivery_city, type: STRING, header: delivery_city }
+              - column: { name: delivery_state, type: STRING, header: delivery_state }
+              - column: { name: delivery_zip, type: STRING, header: delivery_zip }
+              - column: { name: cc_number, type: STRING, header: cc_number }
+              - column: { name: cc_expiration, type: STRING, header: cc_expiration }
+              - column: { name: cc_cvv, type: STRING, header: cc_cvv }
+              - column: { name: status, type: STRING, header: status }
+              - column: { name: version, type: NUMERIC, header: version }

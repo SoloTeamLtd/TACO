@@ -1,10 +1,10 @@
 package com.example.springinaction.tacoapp.order.controller;
 
-import com.example.springinaction.tacoapp.core.domain.entity.Ingredient;
-import com.example.springinaction.tacoapp.core.domain.entity.IngredientType;
-import com.example.springinaction.tacoapp.core.domain.entity.Taco;
-import com.example.springinaction.tacoapp.core.domain.entity.TacoOrder;
-import com.example.springinaction.tacoapp.core.domain.repository.IngredientRepository;
+import com.example.springinaction.tacoapp.core.domain.entity.taco.Ingredient;
+import com.example.springinaction.tacoapp.core.domain.entity.taco.IngredientType;
+import com.example.springinaction.tacoapp.core.domain.entity.taco.Taco;
+import com.example.springinaction.tacoapp.core.domain.entity.taco.TacoOrder;
+import com.example.springinaction.tacoapp.core.domain.repository.taco.IngredientRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -8,8 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class SmsCodeService {
 
-    // Временное хранилище: Телефон -> Сгенерированный код
-    // Когда переедем на Redis, эта логика идеально ляжет туда с TTL (время жизни кода 5 минут)
     private final Map<String, String> codeStorage = new ConcurrentHashMap<>();
 
     public void sendSmsCode(String phone) {

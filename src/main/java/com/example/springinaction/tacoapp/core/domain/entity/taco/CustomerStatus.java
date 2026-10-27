@@ -1,4 +1,4 @@
-package com.example.springinaction.tacoapp.core.domain.entity;
+package com.example.springinaction.tacoapp.core.domain.entity.taco;
 
 public enum CustomerStatus {
     PREPARING,

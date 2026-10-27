@@ -14,7 +14,7 @@ import java.util.Map;
 // оставляем на rest
 @Component
 public class JWTUtil {
-
+/*
     @Value("${jwt.secret}")
     private String secret;
 
@@ -44,5 +44,5 @@ public class JWTUtil {
         claims.put("phone", jwt.getClaim("phone").asString());
         claims.put("role", jwt.getClaim("role").asString());
         return claims;
-    }
+    }*/
 }

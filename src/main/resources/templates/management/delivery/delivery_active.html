@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Активные доставки</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>🔥 Заказы у меня в пути</h2>
+        <div>
+            <a th:href="@{/management/delivery/queue}" class="btn">Вернуться к новым заказам</a>
+        </div>
+    </div>
+
+    <table class="order-table" style="width:100%;">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Полный адрес</th>
+            <th>Кому</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${active_deliveries}">
+            <td th:text="${order.id}">1</td>
+            <td>
+                <span th:text="${order.deliveryStreet}">улица</span>,
+                <span th:text="${order.deliveryCity}">город</span>,
+                <span th:text="${order.deliveryZip}">индекс</span>
+            </td>
+            <td th:text="${order.deliveryName}">Имя</td>
+            <td>
+                <form method="POST" th:action="@{/management/delivery/complete/{id}(id=${order.id})}">
+                    <button class="btn" style="background-color: #2ecc71;" type="submit">Доставлено ✓</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(active_deliveries)}">
+            <td colspan="4" style="text-align: center; color: #7f8c8d; padding: 20px;">
+                У вас нет активных доставок в процессе выполнения.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

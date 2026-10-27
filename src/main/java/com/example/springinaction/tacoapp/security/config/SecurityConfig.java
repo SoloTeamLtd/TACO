@@ -43,6 +43,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Возвращаем BCrypt для полноценных паролей!
+        return new BCryptPasswordEncoder();
     }
 }

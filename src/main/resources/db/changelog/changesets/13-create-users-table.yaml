@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 13-create-users-table
+      author: IvanA
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: users
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: phone
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 13a-sync-users-sequence
+      author: IvanA
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: SELECT setval(pg_get_serial_sequence('users', 'id'), 4, false);

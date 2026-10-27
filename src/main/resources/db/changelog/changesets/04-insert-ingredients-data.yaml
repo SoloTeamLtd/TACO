@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 3-load-initial-ingredient-types
+      id: 4-load-initial-ingredient-types
       author: IvanA
       changes:
         - loadData:
@@ -13,7 +13,7 @@ databaseChangeLog:
                   type: STRING
                   header: id
   - changeSet:
-      id: 4-load-initial-ingredients
+      id: 5-load-initial-ingredients
       author: IvanA
       changes:
         - loadData:

@@ -1,4 +1,4 @@
-package com.example.springinaction.tacoapp.core.domain.entity;
+package com.example.springinaction.tacoapp.core.domain.entity.auth;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,32 +17,21 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "users") // "user" — зарезервированное слово в PostgreSQL, поэтому пишем "users"
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    // Имя пользователя для отображения в интерфейсе Thymeleaf (например, "Алексей")
     private String name;
-
-    // Наш главный уникальный идентификатор (логин), по которому ищем в БД
     @Column(unique = true, nullable = false)
     private String phone;
-
-    // Здесь будет храниться хэш пароля, сгенерированный через BCryptPasswordEncoder
     @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;
-
-    /**
-     * Говорим Spring Security, что уникальным логином (username) для авторизации
-     * в нашем приложении является номер телефона.
-     */
     @Override
     public String getUsername() {
         return this.phone;
@@ -65,7 +54,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // Пароль/токен не просрочены
+        return true;
     }
 
     @Override

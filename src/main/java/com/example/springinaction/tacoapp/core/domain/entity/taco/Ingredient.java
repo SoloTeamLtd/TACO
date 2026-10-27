@@ -1,4 +1,4 @@
-package com.example.springinaction.tacoapp.core.domain.entity;
+package com.example.springinaction.tacoapp.core.domain.entity.taco;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

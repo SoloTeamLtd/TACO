@@ -1,4 +1,4 @@
-package com.example.springinaction.tacoapp.core.domain.entity;
+package com.example.springinaction.tacoapp.core.domain.entity.taco;
 
 import com.example.springinaction.tacoapp.validation.FutureOrPresentCard;
 import jakarta.persistence.*;
@@ -48,7 +48,7 @@ public class TacoOrder {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "taco_order_id") // Задает FK прямо в таблице taco
-    @Valid // Go to validate in every Taco
+    @Valid
     private List<Taco> tacos = new ArrayList<>();
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

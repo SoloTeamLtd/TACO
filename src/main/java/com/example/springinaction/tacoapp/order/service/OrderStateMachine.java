@@ -1,8 +1,8 @@
 package com.example.springinaction.tacoapp.order.service;
 
-import com.example.springinaction.tacoapp.core.domain.entity.OrderStatus;
-import com.example.springinaction.tacoapp.core.domain.entity.OrderStatusHistory;
-import com.example.springinaction.tacoapp.core.domain.entity.TacoOrder;
+import com.example.springinaction.tacoapp.core.domain.entity.taco.OrderStatus;
+import com.example.springinaction.tacoapp.core.domain.entity.taco.OrderStatusHistory;
+import com.example.springinaction.tacoapp.core.domain.entity.taco.TacoOrder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -47,7 +47,6 @@ public class OrderStateMachine {
             return;
         }
 
-        // Проверяем соответствие целевого статуса и роли исполнителя
         switch (targetStatus) {
             case COOKING, READY -> {
                 if (!authorities.contains("ROLE_KITCHEN")) {

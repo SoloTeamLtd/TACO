@@ -49,7 +49,7 @@ databaseChangeLog:
                     # Внешний ключ выносим в отдельный changeset или добавляем условие,
                     # чтобы он не пытался создаться дважды, если таблица уже была.
   - changeSet:
-      id: 2b-add-fk-ingredients
+      id: 3-add-fk-ingredients
       author: IvanA
       preConditions:
         - onFail: MARK_RAN

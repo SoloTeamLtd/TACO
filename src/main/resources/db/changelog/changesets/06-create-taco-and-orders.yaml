@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 5-create-taco-order-table
+      id: 6-create-taco-order-table
       author: IvanA
       preConditions:
         - onFail: MARK_RAN
@@ -20,9 +20,11 @@ databaseChangeLog:
               - column: {name: cc_number, type: VARCHAR(30), constraints: { nullable: false }}
               - column: {name: cc_expiration, type: VARCHAR(5), constraints: { nullable: false }}
               - column: {name: cc_cvv, type: VARCHAR(3), constraints: { nullable: false }}
+              - column: {name: status, type: VARCHAR(30), defaultValue: CREATED, constraints: { nullable: false }}
+              - column: {name: version, type: BIGINT, defaultValue: 0, constraints: { nullable: false }}
 
   - changeSet:
-      id: 6-create-taco-table
+      id: 7-create-taco-table
       author: IvanA
       preConditions:
         - onFail: MARK_RAN
@@ -44,7 +46,7 @@ databaseChangeLog:
             referencedColumnNames: id
 
   - changeSet:
-      id: 7-create-taco-ingredients-join-table
+      id: 8-create-taco-ingredients-join-table
       author: IvanA
       preConditions:
         - onFail: MARK_RAN
