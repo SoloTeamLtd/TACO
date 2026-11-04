@@ -12,6 +12,7 @@ databaseChangeLog:
             tableName: taco_orders
             columns:
               - column: {name: id, type: BIGINT, constraints: { primaryKey: true, nullable: false }, autoIncrement: true }
+              - column: {name: user_id, type: BIGINT, constraints: { nullable: false }} # Связь по числовому ID из auth_db
               - column: {name: delivery_name, type: VARCHAR(100), constraints: { nullable: false }}
               - column: {name: delivery_street, type: VARCHAR(100), constraints: { nullable: false }}
               - column: {name: delivery_city, type: VARCHAR(50), constraints: { nullable: false }}
@@ -22,6 +23,14 @@ databaseChangeLog:
               - column: {name: cc_cvv, type: VARCHAR(3), constraints: { nullable: false }}
               - column: {name: status, type: VARCHAR(30), defaultValue: CREATED, constraints: { nullable: false }}
               - column: {name: version, type: BIGINT, defaultValue: 0, constraints: { nullable: false }}
+
+        # Индекс для быстрой пагинации по конкретному пользователю
+        - createIndex:
+            indexName: idx_taco_orders_user_id
+            tableName: taco_orders
+            columns:
+              - column:
+                  name: user_id
 
   - changeSet:
       id: 7-create-taco-table
@@ -52,7 +61,7 @@ databaseChangeLog:
         - onFail: MARK_RAN
           not:
             tableExists:
-              tableName: taco-ingredients
+              tableName: taco_ingredients
       changes:
         - createTable:
             tableName: taco_ingredients

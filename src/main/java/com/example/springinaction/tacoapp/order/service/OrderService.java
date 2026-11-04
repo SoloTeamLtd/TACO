@@ -8,6 +8,10 @@ import com.example.springinaction.tacoapp.order.repository.TacoOrderRepository;
 import com.example.springinaction.tacoapp.auth.service.SecurityContextHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,10 +40,23 @@ public class OrderService {
     }
 
     public TacoOrder createOrder(TacoOrder tacoOrder) {
+        Long currentUserId = securityContextHelper.getCurrentUserId();
+        tacoOrder.setUserId(currentUserId);
         tacoOrder.setStatus(OrderStatus.CREATED);
         TacoOrder savedOrder = tacoOrderRepository.save(tacoOrder);
-        log.info("Новый заказ успешно создан и сохранен в БД. ID: {}", savedOrder.getId());
+        log.info("Новый заказ успешно создан и сохранен в БД. ID: {}, для userId: {}",
+                savedOrder.getId(), currentUserId);
         return savedOrder;
+    }
+
+    @Transactional(readOnly = true)
+    public Page<TacoOrder> getOrdersForCurrentUser(int page, int size) {
+        Long currentUserId = securityContextHelper.getCurrentUserId();
+        log.info("Запрос списка заказов из taco_db для userId [{}], страница: {}, размер: {}", currentUserId, page, size);
+
+        // Сортировка по id в обратном порядке (сначала новые заказы)
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        return tacoOrderRepository.findByUserId(currentUserId, pageable);
     }
 
     @Transactional(readOnly = true)

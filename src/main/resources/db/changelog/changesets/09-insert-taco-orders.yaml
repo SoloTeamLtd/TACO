@@ -9,6 +9,7 @@ databaseChangeLog:
             primaryKey: id
             columns:
               - column: { name: id, type: NUMERIC, header: id }
+              - column: { name: user_id, type: NUMERIC, header: user_id }
               - column: { name: delivery_name, type: STRING, header: delivery_name }
               - column: { name: delivery_street, type: STRING, header: delivery_street }
               - column: { name: delivery_city, type: STRING, header: delivery_city }

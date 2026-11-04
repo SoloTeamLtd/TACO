@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/management/delivery")
 @RequiredArgsConstructor
-@PreAuthorize("hasAuthority('ROLE_DELIVERY')")
+@PreAuthorize("hasAuthority('ROLE_DELIVERY') or hasAuthority('ROLE_ADMIN')")
 @Slf4j
 public class DeliveryController {
 

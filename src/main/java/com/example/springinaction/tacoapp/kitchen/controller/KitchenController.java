@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/management/kitchen")
 @RequiredArgsConstructor
-@PreAuthorize("hasAuthority('ROLE_KITCHEN')")
+@PreAuthorize("hasAuthority('ROLE_KITCHEN') or hasAuthority('ROLE_ADMIN')")
 @Slf4j
 public class KitchenController {
 

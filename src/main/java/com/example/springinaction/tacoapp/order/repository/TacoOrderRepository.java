@@ -11,4 +11,5 @@ import java.util.List;
 public interface TacoOrderRepository extends CrudRepository<TacoOrder, Long> {
 
     List<TacoOrder> findByStatus(OrderStatus status);
+    List<TacoOrder>  findByUserId(String userPhone);
 }

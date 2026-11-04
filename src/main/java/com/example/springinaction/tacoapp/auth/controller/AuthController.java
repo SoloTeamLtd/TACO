@@ -1,9 +1,11 @@
 package com.example.springinaction.tacoapp.auth.controller;
 
+import com.example.springinaction.tacoapp.auth.domain.UserEntity;
 import com.example.springinaction.tacoapp.auth.service.RegistrationService;
 import com.example.springinaction.tacoapp.auth.service.SmsCodeService;
 import com.example.springinaction.tacoapp.auth.service.UserService;
 import com.example.springinaction.tacoapp.auth.dto.RegistrationForm;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,18 +51,26 @@ public class AuthController {
     }
 
     @PostMapping("/verify-sms")
-    public String processVerifySms(@RequestParam("code") String code, Principal principal) {
+    public String processVerifySms(@RequestParam("code") String code,
+                                   Principal principal,
+                                   HttpServletResponse response) {
         String phone = principal.getName();
-
-        if (userService.verifySmsAndUpgradeAuth(phone, code)) {
-            return "redirect:/orders/current";
+        boolean isVerified = userService.verifySmsAndUpgradeAuth(phone, code, response);
+        if (isVerified) {
+            return "redirect:/orders/my";
         }
-
         return "redirect:/auth/verify-sms?error";
     }
 
     @GetMapping("/access-denied")
     public String accessDenied() {
         return "auth/access-denied";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard(Principal principal, Model model) {
+        UserEntity user = userService.findUserByPhone(principal.getName());
+        model.addAttribute("userName", user.getName());
+        return "auth/dashboard";
     }
 }

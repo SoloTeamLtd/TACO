@@ -22,6 +22,7 @@
 		<spring-boot-maven-plugin.version>3.4.11</spring-boot-maven-plugin.version>
 		<thymeleaf-extras-springsecurity.version>3.0.5.RELEASE</thymeleaf-extras-springsecurity.version>
 		<java-jwt.version>4.4.0</java-jwt.version>
+		<jjwt-api.version>0.12.5</jjwt-api.version>
 	</properties>
 	<dependencies>
 
@@ -60,6 +61,12 @@
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
 			<version>${java-jwt.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${jjwt-api.version}</version>
 			<scope>compile</scope>
 		</dependency>
 <!--		db-->

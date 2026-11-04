@@ -1,6 +1,6 @@
 package com.example.springinaction.tacoapp.auth.service;
 
-import com.example.springinaction.tacoapp.auth.domain.User;
+import com.example.springinaction.tacoapp.auth.domain.UserEntity;
 import com.example.springinaction.tacoapp.auth.domain.UserRole;
 import com.example.springinaction.tacoapp.auth.repository.UserRepository;
 import com.example.springinaction.tacoapp.auth.dto.RegistrationForm; // Твой DTO для формы
@@ -22,7 +22,7 @@ public class RegistrationService {
             throw new IllegalArgumentException("Пользователь с таким номером телефона уже зарегистрирован");
         }
 
-        User user = User.builder()
+        UserEntity user = UserEntity.builder()
                 .name(form.getUsername())
                 .password(passwordEncoder.encode(form.getPassword()))
                 .phone(form.getPhone())
