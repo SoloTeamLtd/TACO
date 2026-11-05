@@ -29,3 +29,13 @@ app:
 
 jwt:
   secret: ${JWT_SECRET:local_development_secret_key_minimum_256_bits_length_taco_delivery}
+
+logging:
+  level:
+    root: INFO
+    org.springframework.security: DEBUG # Это выведет ПОШАГОВЫЙ разбор почему пароль не подошел
+    com.example.springinaction.tacoapp: DEBUG # Выведет все наши дебаг-логи
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+

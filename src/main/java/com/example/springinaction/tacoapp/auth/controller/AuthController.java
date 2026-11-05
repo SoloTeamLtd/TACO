@@ -42,7 +42,8 @@ public class AuthController {
     public String sendSmsInterceptor(Principal principal) {
         String phone = principal.getName();
         smsCodeService.sendSmsCode(phone);
-        return "redirect:/auth/verify-sms";
+//        return "redirect:/auth/verify-sms";
+        return "redirect:/auth/verify-sms?debugCode=1111";
     }
 
     @GetMapping("/verify-sms")

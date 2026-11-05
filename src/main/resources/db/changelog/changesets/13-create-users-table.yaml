@@ -4,7 +4,7 @@ databaseChangeLog:
       author: IvanA
       preConditions:
         - onFail: MARK_RAN
-        - not:
+          not:
             tableExists:
               tableName: users
       changes:
@@ -37,11 +37,3 @@ databaseChangeLog:
                   type: VARCHAR(50)
                   constraints:
                     nullable: false
-
-  - changeSet:
-      id: 13a-sync-users-sequence
-      author: IvanA
-      changes:
-        - sql:
-            dbms: postgresql
-            sql: SELECT setval(pg_get_serial_sequence('users', 'id'), 4, false);
