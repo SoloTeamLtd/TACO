@@ -22,9 +22,8 @@
         <!-- Избегаем показа имени пользователя во время ROLE_PRE_AUTH -->
         <div sec:authorize="isAuthenticated() and !hasAuthority('ROLE_PRE_AUTH')" class="user-profile">
                 <span class="welcome-text">
-                    Hello, <strong sec:authentication="principal.username">User</strong>!
+                Hello, <strong sec:authentication="principal.name">Bro</strong>!
                 </span>
-            <!-- Кнопка Logout оформлена как POST-форма для защиты от CSRF -->
             <form th:action="@{/logout}" method="POST" class="logout-form">
                 <button type="submit" class="btn-link">Logout</button>
             </form>

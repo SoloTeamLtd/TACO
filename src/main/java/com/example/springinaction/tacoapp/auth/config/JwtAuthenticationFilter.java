@@ -27,8 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
-        return path.equals("/") ||
-               path.equals("/auth/login") ||
+        return path.equals("/auth/login") ||
                path.equals("/login") ||
                path.equals("/auth/register") ||
                path.contains("/send-sms-interceptor") ||
@@ -54,28 +53,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        if (token != null) {
-            if (tokenProvider.validateToken(token)) {
-                String phone = tokenProvider.getUsernameFromToken(token);
-                Long userId = tokenProvider.getUserIdFromToken(token);
-                String role = tokenProvider.getRoleFromToken(token);
+        if (token != null && tokenProvider.validateToken(token)) {
+            String phone = tokenProvider.getUsernameFromToken(token);
+            Long userId = tokenProvider.getUserIdFromToken(token);
+            String role = tokenProvider.getRoleFromToken(token);
+            String name = tokenProvider.getNameFromToken(token); // <--- Достаем имя из токена!
 
-                UserEntity principalUser = UserEntity.builder()
-                        .id(userId)
-                        .phone(phone)
-                        .role(UserRole.valueOf(role))
-                        .build();
+            UserEntity principalUser = UserEntity.builder()
+                    .id(userId)
+                    .phone(phone)
+                    .name(name)
+                    .role(UserRole.valueOf(role))
+                    .build();
 
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        principalUser,
-                        null,
-                        List.of(new SimpleGrantedAuthority(role))
-                );
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                    principalUser,
+                    null,
+                    List.of(new SimpleGrantedAuthority(role))
+            );
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            } else {
-                SecurityContextHolder.clearContext();
-            }
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         filterChain.doFilter(request, response);

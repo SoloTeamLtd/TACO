@@ -33,6 +33,7 @@ public class UserService implements UserDetailsService {
         return User.builder()
                 .username(userEntity.getPhone())
                 .password(userEntity.getPassword())
+//                .roles("PRE_AUTH")
                 .authorities(List.of(new SimpleGrantedAuthority("ROLE_PRE_AUTH")))
                 .build();
     }
@@ -42,9 +43,11 @@ public class UserService implements UserDetailsService {
             return false;
         }
 
-        smsCodeService.clearCode(phone);
-        UserEntity realUser = userRepository.findByPhone(phone)
-                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден после верификации"));
+    smsCodeService.clearCode(phone);
+    UserEntity realUser = userRepository.findByPhone(phone)
+            .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден после верификации"));
+
+        SecurityContextHolder.clearContext();
 
         String jwtToken = jwtTokenProvider.generateToken(realUser);
         Cookie jwtCookie = new Cookie("JWT_TOKEN", jwtToken);

@@ -29,14 +29,14 @@ public class DeliveryController {
     public String showDeliveryQueue(Model model) {
         log.info("Запрос очереди заказов для доставки.");
         model.addAttribute("ready_orders", deliveryService.getOrdersReadyForDelivery());
-        return "delivery_queue";
+        return "/management/delivery/delivery_queue";
     }
 
     @GetMapping("/active")
     public String showActiveDeliveries(Model model) {
         log.info("Запрос списка активных доставок.");
         model.addAttribute("active_deliveries", deliveryService.getOrdersInDelivery());
-        return "delivery_active";
+        return "/management/delivery/delivery_active";
     }
 
     @PostMapping("/start/{id}")

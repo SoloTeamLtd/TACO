@@ -28,6 +28,7 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .setSubject(userEntity.getPhone())
                 .claim("userId", userEntity.getId())
+                .claim("name", userEntity.getName())
                 .claim("role", userEntity.getRole().name())
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
@@ -50,6 +51,10 @@ public class JwtTokenProvider {
 
     public String getUsernameFromToken(String token) {
         return getClaims(token).getSubject();
+    }
+
+    public String getNameFromToken(String token) {
+        return getClaims(token).get("name", String.class);
     }
 
     public Long getUserIdFromToken(String token) {

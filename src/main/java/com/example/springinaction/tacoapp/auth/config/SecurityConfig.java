@@ -43,7 +43,13 @@ public class SecurityConfig {
                         .passwordParameter("password")
                         .defaultSuccessUrl("/auth/send-sms-interceptor", true)
                 )
-                .logout(logout -> logout.logoutSuccessUrl("/auth/login"))
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/auth/login")
+                        .deleteCookies("JWT_TOKEN", "JSESSIONID")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                )
                 .exceptionHandling(exception -> exception
                         .accessDeniedPage("/auth/access-denied")
                 )

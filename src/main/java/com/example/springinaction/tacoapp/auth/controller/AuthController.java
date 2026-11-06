@@ -42,8 +42,8 @@ public class AuthController {
     public String sendSmsInterceptor(Principal principal) {
         String phone = principal.getName();
         smsCodeService.sendSmsCode(phone);
-//        return "redirect:/auth/verify-sms";
-        return "redirect:/auth/verify-sms?debugCode=1111";
+        return "redirect:/auth/verify-sms";
+//        return "redirect:/auth/verify-sms?debugCode=1111";
     }
 
     @GetMapping("/verify-sms")
@@ -58,7 +58,7 @@ public class AuthController {
         String phone = principal.getName();
         boolean isVerified = userService.verifySmsAndUpgradeAuth(phone, code, response);
         if (isVerified) {
-            return "redirect:/orders/my";
+            return "redirect:/";
         }
         return "redirect:/auth/verify-sms?error";
     }

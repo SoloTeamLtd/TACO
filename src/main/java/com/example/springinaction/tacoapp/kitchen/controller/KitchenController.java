@@ -29,14 +29,14 @@ public class KitchenController {
     public String showKitchenQueue(Model model) {
         log.info("Запрос очереди входящих заказов для кухни.");
         model.addAttribute("orders_created", kitchenService.getOrdersInQueue());
-        return "kitchen_queue";
+        return "/management/kitchen/kitchen_queue";
     }
 
     @GetMapping("/active")
     public String showActiveKitchenOrders(Model model) {
         log.info("Запрос активных заказов на кухне.");
         model.addAttribute("orders_cooking", kitchenService.getActiveOrders());
-        return "kitchen_active";
+        return "/management/kitchen/kitchen_active";
     }
 
     @PostMapping("/start/{id}")

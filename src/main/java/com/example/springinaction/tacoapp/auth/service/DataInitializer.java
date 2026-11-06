@@ -28,7 +28,6 @@ public class DataInitializer implements CommandLineRunner {
 
         String encodedPassword = passwordEncoder.encode("password");
 
-        // База данных сама выдаст ID = 1 (так как таблица пустая)
         userRepository.save(UserEntity.builder()
                 .name("Admin")
                 .phone("+79991112233")
@@ -36,7 +35,6 @@ public class DataInitializer implements CommandLineRunner {
                 .role(UserRole.ROLE_ADMIN)
                 .build());
 
-        // База данных сама выдаст ID = 2 (User, как раз под наши заказы!)
         userRepository.save(UserEntity.builder()
                 .name("User")
                 .phone("+79994445566")
@@ -44,7 +42,6 @@ public class DataInitializer implements CommandLineRunner {
                 .role(UserRole.ROLE_USER)
                 .build());
 
-        // База данных сама выдаст ID = 3
         userRepository.save(UserEntity.builder()
                 .name("Chef")
                 .phone("+79997778899")
@@ -52,7 +49,6 @@ public class DataInitializer implements CommandLineRunner {
                 .role(UserRole.ROLE_KITCHEN)
                 .build());
 
-        // База данных сама выдаст ID = 4
         userRepository.save(UserEntity.builder()
                 .name("Courier")
                 .phone("+79990001122")

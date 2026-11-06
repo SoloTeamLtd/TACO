@@ -1,25 +1,25 @@
 package com.example.springinaction.tacoapp.auth.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
+@Slf4j
 public class SmsCodeService {
 
     private final Map<String, String> codeStorage = new ConcurrentHashMap<>();
 
     public void sendSmsCode(String phone) {
-        // Заглушка: всегда генерируем "1111". Позже здесь будет Random
         String mockCode = "1111";
-
         codeStorage.put(phone, mockCode);
 
-        // Имитируем отправку — пишем в лог бэкенда
-        System.out.println("========================================");
-        System.out.println("СМС для номера " + phone + ": Код подтверждения " + mockCode);
-        System.out.println("========================================");
+        // Используем профессиональное логирование со структурированными границами
+        log.info("\n========================================\n" +
+                "📱 СМС для номера {}: Код подтверждения {}\n" +
+                "========================================", phone, mockCode);
     }
 
     public boolean verifyCode(String phone, String inputCode) {
