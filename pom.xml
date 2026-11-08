@@ -20,7 +20,7 @@
 		<lombok.version>1.18.44</lombok.version>
 		<slf4j.version>2.0.16</slf4j.version>
 		<spring-boot-maven-plugin.version>3.4.11</spring-boot-maven-plugin.version>
-		<thymeleaf-extras-springsecurity.version>3.0.5.RELEASE</thymeleaf-extras-springsecurity.version>
+		<thymeleaf-extras-springsecurity.version>3.1.5.RELEASE</thymeleaf-extras-springsecurity.version>
 		<java-jwt.version>4.4.0</java-jwt.version>
 		<jjwt-api.version>0.12.5</jjwt-api.version>
 	</properties>
@@ -34,7 +34,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity3</artifactId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
 			<version>${thymeleaf-extras-springsecurity.version}</version>
 			<scope>compile</scope>
 		</dependency>

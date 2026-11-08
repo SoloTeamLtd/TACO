@@ -45,7 +45,7 @@ public class TacoOrderController {
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", orderPage.getTotalPages());
-        model.addAttribute("userName", securityContextHelper.getCurrentUsername()); // Передаем телефон/имя
+        model.addAttribute("userName", securityContextHelper.getCurrentName()); // Передаем имя пользователя
 
         return "orders/userOrders"; // Путь к файлу шаблона: templates/orders/userOrders.html
     }

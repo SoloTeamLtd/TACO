@@ -9,16 +9,38 @@ import org.springframework.stereotype.Component;
 public class SecurityContextHelper {
 
     /**
-     * Автоматически достает username текущего вошедшего пользователя.
+     * Автоматически достает username (телефон) текущего вошедшего пользователя.
      * Если запрос сделан неавторизованным пользователем (например, в тестах или при создании заказа гостем),
      * вернет "SYSTEM".
      */
     public String getCurrentUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserEntity) {
+                return ((UserEntity) principal).getUsername(); // телефон
+            }
             return authentication.getName();
         }
         return "SYSTEM";
+    }
+
+    /**
+     * Достает имя (name) текущего вошедшего пользователя из UserEntity в SecurityContext.
+     * Если principal — строка (не UserEntity), возвращается как есть.
+     * Если пользователь не авторизован, возвращается "Гость".
+     */
+    public String getCurrentName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserEntity) {
+                return ((UserEntity) principal).getName();
+            }
+            // fallback: если principal — строка (например, телефон)
+            return principal.toString();
+        }
+        return "Гость";
     }
 
     public Long getCurrentUserId() {
