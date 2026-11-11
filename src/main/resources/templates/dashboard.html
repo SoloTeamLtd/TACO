@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Личный кабинет</title>
+  <!-- Подключаем твой файл стилей -->
+  <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body>
+<!-- Использует стили из header { background-color: var(--dark-color); ... } -->
+<header>
+  <h1>Личный кабинет</h1>
+</header>
+
+<!-- Использует стили из .container { max-width: 900px; ... } -->
+<div class="container">
+  <h2>Приветствуем, <span th:text="${userName}">Пользователь</span>!</h2>
+
+  <!-- Использует стили из .info-text { color: #7f8c8d; ... } -->
+  <p class="info-text">Здесь вы можете управлять вашими заказами и просматривать историю покупок.</p>
+
+  <!-- Использует стили из .form-group и .btn -->
+  <div class="form-group" style="align-items: flex-start;">
+    <a th:href="@{/design}" class="btn" style="text-decoration: none;">➕ Создать новый заказ тако</a>
+  </div>
+
+  <h3>Ваша история заказов:</h3>
+
+  <!-- Блок отображается только если у пользователя ЕСТЬ заказы -->
+  <div th:if="${not #lists.isEmpty(orders)}">
+    <!-- Автоматически подхватывает стили table, th, td из твоего CSS -->
+    <table>
+      <thead>
+      <tr>
+        <th>Заказ №</th>
+        <th>Статус</th>
+        <th>Адрес доставки</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Итерируемся по списку заказов из Page.getContent() -->
+      <tr th:each="order : ${orders}">
+        <td th:text="'#' + ${order.id}" style="font-weight: bold;">#1024</td>
+        <td>
+          <!-- Выводим статус (например, CREATED) -->
+          <span th:text="${order.status}">В процессе</span>
+        </td>
+        <!-- Объединяем улицу и город из сущности TacoOrder -->
+        <td th:text="${order.deliveryStreet} + ', ' + ${order.deliveryCity}">ул. Ленина, д. 10</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <!-- Блок пагинации (отображается только если страниц больше 1) -->
+    <div th:if="${totalPages > 1}" style="margin-top: 25px; display: flex; justify-content: space-between; align-items: center;">
+
+      <!-- Кнопка "Назад" -->
+      <div>
+        <a th:if="${currentPage > 0}"
+           th:href="@{/auth/dashboard(page=${currentPage - 1})}"
+           class="btn"
+           style="text-decoration: none; padding: 8px 15px; font-size: 14px;">« Назад</a>
+      </div>
+
+      <!-- Счетчик страниц -->
+      <span class="info-text" style="margin: 0; font-weight: bold;"
+            th:text="'Страница ' + (${currentPage} + 1) + ' из ' + ${totalPages}">
+            Страница 1 из 5
+          </span>
+
+      <!-- Кнопка "Вперед" -->
+      <div>
+        <a th:if="${currentPage < totalPages - 1}"
+           th:href="@{/auth/dashboard(page=${currentPage + 1})}"
+           class="btn"
+           style="text-decoration: none; padding: 8px 15px; font-size: 14px;">Вперед »</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Блок отображается, если у пользователя еще нет ни одного заказа в taco_db -->
+  <div th:unless="${not #lists.isEmpty(orders)}">
+    <p class="info-text" style="text-align: center; margin: 40px 0; font-style: italic;">
+      У вас пока нет ни одного созданного заказа.
+    </p>
+  </div>
+
+  <!-- Кнопка возврата на главную -->
+  <div class="form-group" style="margin-top: 35px; align-items: flex-start; border-top: 1px solid #ddd; padding-top: 20px;">
+    <a th:href="@{/}" class="btn" style="text-decoration: none; background-color: var(--dark-color);">На главную</a>
+  </div>
+</div>
+</body>
+</html>

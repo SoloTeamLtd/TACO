@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 12-add-performance-indexes
+      author: IvanA
+      changes:
+        # 1. Индекс для быстрого поиска заказов по статусу (для кухни и доставки)
+        - createIndex:
+            tableName: taco_orders
+            indexName: idx_taco_orders_status
+            columns:
+              - column: { name: status }
+
+        # 2. Индекс на внешний ключ в таблице истории статусов
+        - createIndex:
+            tableName: order_status_history
+            indexName: idx_status_history_order_id
+            columns:
+              - column: { name: taco_order_id }
+
+        # 3. Индекс на внешний ключ в таблице taco (связь с заказом)
+        - createIndex:
+            tableName: taco
+            indexName: idx_taco_order_id
+            columns:
+              - column: { name: taco_order_id }
+

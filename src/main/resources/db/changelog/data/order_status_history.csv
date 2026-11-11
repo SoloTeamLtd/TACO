@@ -1,0 +1,7 @@
+id,taco_order_id,from_status,to_status,changed_at,changed_by
+1,1,,CREATED,NOW(),system
+2,2,,CREATED,NOW(),system
+3,2,CREATED,COOKING,NOW(),system
+4,3,,CREATED,NOW(),system
+5,3,CREATED,COOKING,NOW(),system
+6,3,COOKING,DELIVERED,NOW(),system

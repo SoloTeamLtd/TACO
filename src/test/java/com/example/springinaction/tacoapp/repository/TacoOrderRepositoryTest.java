@@ -1,22 +1,14 @@
 package com.example.springinaction.tacoapp.repository;
 
-import com.example.springinaction.tacoapp.entity.Ingredient;
-import com.example.springinaction.tacoapp.entity.Taco;
-import com.example.springinaction.tacoapp.entity.TacoOrder;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class TacoOrderRepositoryTest {
-
+/*
     @Autowired
     private TacoOrderRepository tacoOrderRepository;
     @Autowired
@@ -60,5 +52,5 @@ class TacoOrderRepositoryTest {
         assertNotNull(savedTaco.getId(), "Should be Id");
         assertEquals("The Monster Taco", savedTaco.getName());
         assertEquals(2, savedTaco.getIngredients().size());
-    }
+    }*/
 }

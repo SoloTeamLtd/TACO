@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель администратора</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h2>🔧 Панель администратора</h2>
+
+    <div th:if="${param.created}" class="info-text" style="color: #2ecc71;">
+        ✅ Пользователь успешно создан!
+    </div>
+
+    <div class="action-grid" style="margin-top: 25px;">
+        <div>
+            <a th:href="@{/management/admin/users/new}" class="btn btn-primary">➕ Создать нового пользователя</a>
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-top: 35px; border-top: 1px solid #ddd; padding-top: 20px;">
+        <a th:href="@{/}" class="btn" style="background-color: var(--dark-color);">На главную</a>
+    </div>
+</div>
+</body>
+</html>

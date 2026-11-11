@@ -1,0 +1,66 @@
+package com.example.springinaction.tacoapp.auth.config;
+
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.example.springinaction.tacoapp.auth.config.JwtAuthenticationFilter;
+
+@AllArgsConstructor
+@Configuration
+public class SecurityConfig {
+
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeHttpRequests(auth -> auth
+                        // Доступ к СМС-процедурам для временной роли
+                        .requestMatchers("/auth/verify-sms", "/auth/send-sms-interceptor", "/auth/access-denied")
+                            .hasAuthority("ROLE_PRE_AUTH")
+
+                        // Закрытые панели менеджеров
+                        .requestMatchers("/management/kitchen/**").hasAnyAuthority("ROLE_KITCHEN", "ROLE_ADMIN")
+                        .requestMatchers("/management/delivery/queue/**", "/management/delivery/my/**").hasAnyAuthority("ROLE_DELIVERY", "ROLE_ADMIN")
+                        .requestMatchers("/management/delivery/active/**", "/management/delivery/manager/**").hasAnyAuthority("ROLE_DELIVERY_MANAGER", "ROLE_ADMIN")
+                        .requestMatchers("/management/admin/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/design", "/orderForm", "/orders/**", "/auth/dashboard")
+                            .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+
+                        // ОТКРЫТЫЕ СТРАНИЦЫ: Добавляем сюда корень "/"
+                        .requestMatchers("/", "/auth/login", "/auth/register", "/css/**", "/images/**", "/error").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/auth/register").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .csrf(csrf -> csrf.disable())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin(form -> form
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/login")
+                        .usernameParameter("phone")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/auth/send-sms-interceptor", true)
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/auth/login")
+                        .deleteCookies("JWT_TOKEN", "JSESSIONID")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/auth/access-denied")
+                )
+                .build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}

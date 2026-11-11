@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 14-load-initial-users
+      author: IvanA
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExists:
+            tableName: users
+        - tableIsEmpty:
+            tableName: users
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: |
+              INSERT INTO users (id, name, phone, password, role) VALUES 
+              (1, 'Admin', '+79991112233', '$2a$10$EblZqNptyYvcLm/vwDCv5eZDwKEXvXY4PyBgK.14uzPMF.n./G2K6', 'ROLE_ADMIN'),
+              (2, 'User', '+79994445566', '$2a$10$EblZqNptyYvcLm/vwDCv5eZDwKEXvXY4PyBgK.14uzPMF.n./G2K6', 'ROLE_USER'),
+              (3, 'Chef', '+79997778899', '$2a$10$EblZqNptyYvcLm/vwDCv5eZDwKEXvXY4PyBgK.14uzPMF.n./G2K6', 'ROLE_KITCHEN'),
+              (4, 'Courier', '+79990001122', '$2a$10$EblZqNptyYvcLm/vwDCv5eZDwKEXvXY4PyBgK.14uzPMF.n./G2K6', 'ROLE_DELIVERY');
+
+  - changeSet:
+      id: 14a-sync-users-sequence
+      author: IvanA
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: SELECT setval(pg_get_serial_sequence('users', 'id'), 5, false);

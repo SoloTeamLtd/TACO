@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changesets/13-create-users-table.yaml
+  - include:
+      file: db/changelog/changesets/14-insert-users.yaml
