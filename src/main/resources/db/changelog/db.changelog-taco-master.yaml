@@ -11,3 +11,5 @@ databaseChangeLog:
       file: db/changelog/changesets/10-create-order-status-history-table.yaml
   - include:
       file: db/changelog/changesets/11-insert-order-status-history.yaml
+  - include:
+      file: db/changelog/changesets/15-add-delivery-person-id.yaml

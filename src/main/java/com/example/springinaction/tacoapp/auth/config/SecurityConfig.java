@@ -26,7 +26,9 @@ public class SecurityConfig {
 
                         // Закрытые панели менеджеров
                         .requestMatchers("/management/kitchen/**").hasAnyAuthority("ROLE_KITCHEN", "ROLE_ADMIN")
-                        .requestMatchers("/management/delivery/**").hasAnyAuthority("ROLE_DELIVERY", "ROLE_ADMIN")
+                        .requestMatchers("/management/delivery/queue/**", "/management/delivery/my/**").hasAnyAuthority("ROLE_DELIVERY", "ROLE_ADMIN")
+                        .requestMatchers("/management/delivery/active/**", "/management/delivery/manager/**").hasAnyAuthority("ROLE_DELIVERY_MANAGER", "ROLE_ADMIN")
+                        .requestMatchers("/management/admin/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/design", "/orderForm", "/orders/**", "/auth/dashboard")
                             .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
 
@@ -35,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/auth/register").permitAll()
                         .anyRequest().authenticated()
                 )
+                .csrf(csrf -> csrf.disable())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form
                         .loginPage("/auth/login")

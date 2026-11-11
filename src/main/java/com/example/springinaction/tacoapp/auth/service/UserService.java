@@ -5,6 +5,7 @@ import com.example.springinaction.tacoapp.auth.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -30,10 +32,14 @@ public class UserService implements UserDetailsService {
         UserEntity userEntity = userRepository.findByPhone(phone)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
 
+        log.debug("loadUserByUsername: phone='{}', найден пользователь id={}, role={}",
+                phone, userEntity.getId(), userEntity.getRole());
+        log.debug("Хеш пароля из БД (первые 20 символов): {}...",
+                userEntity.getPassword().substring(0, Math.min(20, userEntity.getPassword().length())));
+
         return User.builder()
                 .username(userEntity.getPhone())
                 .password(userEntity.getPassword())
-//                .roles("PRE_AUTH")
                 .authorities(List.of(new SimpleGrantedAuthority("ROLE_PRE_AUTH")))
                 .build();
     }

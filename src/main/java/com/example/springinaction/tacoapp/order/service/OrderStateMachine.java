@@ -55,7 +55,7 @@ public class OrderStateMachine {
                 }
             }
             case DELIVERING, DELIVERED -> {
-                if (!authorities.contains("ROLE_DELIVERY")) {
+                if (!authorities.contains("ROLE_DELIVERY") && !authorities.contains("ROLE_DELIVERY_MANAGER")) {
                     throw new org.springframework.security.access
                             .AccessDeniedException("Только служба доставки может управлять этапом транспортировки!");
                 }

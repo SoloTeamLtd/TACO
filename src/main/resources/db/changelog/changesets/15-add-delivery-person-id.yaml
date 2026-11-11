@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 15-add-delivery-person-id
+      author: IvanA
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            columnExists:
+              tableName: taco_orders
+              columnName: delivery_person_id
+      changes:
+        - addColumn:
+            tableName: taco_orders
+            columns:
+              - column:
+                  name: delivery_person_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+        # Индекс для быстрой выборки заказов курьера
+        - createIndex:
+            tableName: taco_orders
+            indexName: idx_taco_orders_delivery_person
+            columns:
+              - column:
+                  name: delivery_person_id

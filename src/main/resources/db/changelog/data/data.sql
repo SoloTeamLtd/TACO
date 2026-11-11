@@ -46,4 +46,5 @@ INSERT INTO users (id, name, phone, password, role)
 VALUES
 (1,user,'+71111111111','qwqwqw','ROLE_KITCHEN'),
 (2,user,'+72222222222','qwqwqw','ROLE_DELIVERY'),
-(3,user,'+73333333333','qwqwqw','ROLE_ADMIN');
+(3,user,'+73333333333','qwqwqw','ROLE_ADMIN'),
+(4,user,'+74444444444','qwqwqw','ROLE_DELIVERY_MANAGER');

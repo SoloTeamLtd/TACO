@@ -19,43 +19,57 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (userRepository.count() > 0) {
-            log.info("Инициализация пользователей пропущена: в auth_db уже есть данные.");
-            return;
-        }
-
-        log.info("Запуск автоматической инициализации тестовых пользователей через Java BCrypt...");
-
         String encodedPassword = passwordEncoder.encode("password");
 
-        userRepository.save(UserEntity.builder()
-                .name("Admin")
-                .phone("+79991112233")
-                .password(encodedPassword)
-                .role(UserRole.ROLE_ADMIN)
-                .build());
+        // 1. Массовая инициализация — только если таблица пуста
+        if (userRepository.count() == 0) {
+            log.info("Запуск автоматической инициализации тестовых пользователей через Java BCrypt...");
 
-        userRepository.save(UserEntity.builder()
-                .name("User")
-                .phone("+79994445566")
-                .password(encodedPassword)
-                .role(UserRole.ROLE_USER)
-                .build());
+            userRepository.save(UserEntity.builder()
+                    .name("Admin")
+                    .phone("+79991112233")
+                    .password(encodedPassword)
+                    .role(UserRole.ROLE_ADMIN)
+                    .build());
 
-        userRepository.save(UserEntity.builder()
-                .name("Chef")
-                .phone("+79997778899")
-                .password(encodedPassword)
-                .role(UserRole.ROLE_KITCHEN)
-                .build());
+            userRepository.save(UserEntity.builder()
+                    .name("User")
+                    .phone("+79994445566")
+                    .password(encodedPassword)
+                    .role(UserRole.ROLE_USER)
+                    .build());
 
-        userRepository.save(UserEntity.builder()
-                .name("Courier")
-                .phone("+79990001122")
-                .password(encodedPassword)
-                .role(UserRole.ROLE_DELIVERY)
-                .build());
+            userRepository.save(UserEntity.builder()
+                    .name("Chef")
+                    .phone("+79997778899")
+                    .password(encodedPassword)
+                    .role(UserRole.ROLE_KITCHEN)
+                    .build());
 
-        log.info("Все тестовые пользователи успешно созданы автоматически в правильном порядке!");
+            userRepository.save(UserEntity.builder()
+                    .name("Courier")
+                    .phone("+79990001122")
+                    .password(encodedPassword)
+                    .role(UserRole.ROLE_DELIVERY)
+                    .build());
+
+            log.info("Все начальные пользователи успешно созданы.");
+        } else {
+            log.info("Инициализация начальных пользователей пропущена: в auth_db уже есть данные.");
+        }
+
+        // 2. DeliveryManager — добавляем всегда, если его нет
+        if (userRepository.findByPhone("+79990001133").isEmpty()) {
+            log.info("Добавление тестового пользователя DeliveryManager...");
+            userRepository.save(UserEntity.builder()
+                    .name("DeliveryManager")
+                    .phone("+79990001133")
+                    .password(encodedPassword)
+                    .role(UserRole.ROLE_DELIVERY_MANAGER)
+                    .build());
+            log.info("Пользователь DeliveryManager успешно добавлен.");
+        } else {
+            log.info("Пользователь DeliveryManager уже существует, пропускаем.");
+        }
     }
 }

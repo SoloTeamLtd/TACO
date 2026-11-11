@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание пользователя</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h2>➕ Создание нового пользователя</h2>
+
+    <div class="error-box" th:if="${error}" th:text="${error}" style="color: #e74c3c; background: #fdf0f0; padding: 12px; border-radius: 6px; margin-bottom: 15px;"></div>
+
+    <form th:action="@{/management/admin/users/new}" th:object="${adminUserForm}" method="post">
+        <div class="form-group">
+            <label for="username">Имя пользователя</label>
+            <input type="text" id="username" name="username" placeholder="Алексей" required />
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Номер телефона</label>
+            <input type="text" id="phone" name="phone" placeholder="+79991234567" required />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required />
+        </div>
+
+        <div class="form-group">
+            <label for="role">Роль пользователя</label>
+            <select id="role" name="role" required>
+                <option value="">— выберите роль —</option>
+                <option value="ROLE_USER">👤 Обычный пользователь</option>
+                <option value="ROLE_DELIVERY">🛵 Курьер доставки</option>
+                <option value="ROLE_DELIVERY_MANAGER">📋 Менеджер доставки</option>
+                <option value="ROLE_KITCHEN">👨‍🍳 Повар</option>
+                <option value="ROLE_ADMIN">🔧 Администратор</option>
+            </select>
+        </div>
+
+        <button type="submit" class="auth-btn btn-blue">Создать пользователя</button>
+    </form>
+
+    <div class="form-group" style="margin-top: 25px;">
+        <a th:href="@{/management/admin}" class="btn">← Назад в панель администратора</a>
+    </div>
+</div>
+</body>
+</html>

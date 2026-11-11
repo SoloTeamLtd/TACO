@@ -3,12 +3,14 @@ package com.example.springinaction.tacoapp.order.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "order_status_history")
 @NoArgsConstructor
+@ToString(exclude = "order")
 public class OrderStatusHistory {
 
     @Id

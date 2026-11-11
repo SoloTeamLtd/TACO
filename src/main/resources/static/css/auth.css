@@ -107,6 +107,18 @@ body.auth-body {
     text-align: center;
 }
 
+/* Сообщения об успехе */
+.success-box {
+    background-color: #e8fde8;
+    color: #27ae60;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #b4f8b4;
+    text-align: center;
+}
+
 /* Ссылки навигации между логином/регистрацией */
 .auth-links {
     display: block;
@@ -128,3 +140,60 @@ body.auth-body {
 /* Кастомизация для страницы 403 */
 .text-center { text-align: center; }
 .error-code { font-size: 72px; font-weight: bold; color: #e74c3c; margin: 0; }
+
+/* ======================== */
+/* СТРАНИЦА РЕГИСТРАЦИИ     */
+/* ======================== */
+
+/* Фон с градиентом вместо однотонного */
+body.auth-body.register-body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Карточка регистрации — с цветной шапкой */
+.auth-card.register-card {
+    max-width: 480px; /* чуть шире */
+    overflow: hidden; /* чтобы скруглить углы у шапки */
+}
+
+/* Цветная шапка карточки */
+.register-card .register-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 25px 30px;
+    margin: -35px -35px 0 -35px; /* растягиваем на всю ширину карточки */
+    text-align: center;
+}
+
+.register-card .register-header h2 {
+    margin: 0;
+    color: white;
+    font-size: 26px;
+}
+
+.register-card .register-header p {
+    margin: 8px 0 0;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 14px;
+}
+
+/* Блок-подсказка с требованиями к форме */
+.register-hint {
+    background: #f0f4ff;
+    border-left: 4px solid #667eea;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #5a6b8a;
+    margin-bottom: 20px;
+}
+
+/* Кнопка регистрации — фиолетового оттенка (акцент) */
+.btn-register {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.btn-register:hover {
+    background: linear-gradient(135deg, #5a6fd6, #6a3d8f);
+}

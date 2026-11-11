@@ -57,7 +57,7 @@
       <!-- Кнопка "Назад" -->
       <div>
         <a th:if="${currentPage > 0}"
-           th:href="@{/orders/my(page=${currentPage - 1})}"
+           th:href="@{/auth/dashboard(page=${currentPage - 1})}"
            class="btn"
            style="text-decoration: none; padding: 8px 15px; font-size: 14px;">« Назад</a>
       </div>
@@ -71,7 +71,7 @@
       <!-- Кнопка "Вперед" -->
       <div>
         <a th:if="${currentPage < totalPages - 1}"
-           th:href="@{/orders/my(page=${currentPage + 1})}"
+           th:href="@{/auth/dashboard(page=${currentPage + 1})}"
            class="btn"
            style="text-decoration: none; padding: 8px 15px; font-size: 14px;">Вперед »</a>
       </div>

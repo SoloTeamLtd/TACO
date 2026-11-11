@@ -14,6 +14,10 @@
     Неверный номер телефона или пароль.
   </div>
 
+  <div class="success-box" th:if="${param.success}">
+    ✅ Аккаунт успешно создан! Войдите с номером телефона и паролем.
+  </div>
+
   <form th:action="@{/login}" method="post">
     <div class="form-group">
       <label for="phone">Номер телефона</label>

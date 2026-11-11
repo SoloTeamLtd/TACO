@@ -10,7 +10,10 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2>📦 Доступные заказы (Ожидают отправки)</h2>
         <div>
-            <a th:href="@{/management/delivery/active}" class="btn" style="background-color: #f39c12;">Посмотреть мои доставки в пути</a>
+            <a th:href="@{/management/delivery/my}" class="btn" style="background-color: #3498db;"
+               sec:authorize="hasAnyAuthority('ROLE_DELIVERY', 'ROLE_ADMIN')">🛵 Мои доставки</a>
+            <a th:href="@{/management/delivery/active}" class="btn" style="background-color: #f39c12;"
+               sec:authorize="hasAnyAuthority('ROLE_DELIVERY_MANAGER', 'ROLE_ADMIN')">📋 Панель менеджера</a>
         </div>
     </div>
 

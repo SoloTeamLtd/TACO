@@ -10,6 +10,7 @@
     <h1>Order your taco creations!</h1>
 </header>
     <div class="container">
+        <div class="error-box" th:if="${orderError}" th:text="${orderError}" style="margin-bottom: 20px;"></div>
         <form method="POST" th:action="@{/orders}" th:object="${tacoOrder}">
             <h2>Deliver my master tacos to...</h2>
 

@@ -64,6 +64,28 @@ public class OrderService {
         return tacoOrderRepository.findByStatus(status);
     }
 
+    /**
+     * Заказы, назначенные конкретному курьеру с указанным статусом.
+     */
+    @Transactional(readOnly = true)
+    public List<TacoOrder> getDeliveriesForCourier(Long courierId, OrderStatus status) {
+        return tacoOrderRepository.findByDeliveryPersonIdAndStatus(courierId, status);
+    }
+
+    @Transactional
+    public void assignOrderToCourierAndChangeStatus(Long orderId, Long courierId, OrderStatus targetStatus) {
+        TacoOrder tacoOrder = tacoOrderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Заказ с ID " + orderId + " не найден"));
+
+        tacoOrder.setDeliveryPersonId(courierId);
+
+        String currentUsername = securityContextHelper.getCurrentUsername();
+        OrderStatusHistory historyEntry = orderStateMachine.transition(tacoOrder, targetStatus, currentUsername);
+        tacoOrderRepository.save(tacoOrder);
+        statusHistoryRepository.save(historyEntry);
+        log.info("Курьер userId={} назначен на заказ id={}, статус изменён на {}", courierId, orderId, targetStatus);
+    }
+
     public TacoOrder getTacoOrder(Long orderId) {
         TacoOrder tacoOrder = tacoOrderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Заказ " + orderId + " не найден"));

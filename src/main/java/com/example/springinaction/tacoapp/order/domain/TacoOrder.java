@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
 import java.math.BigInteger;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Data
 @Entity
+@ToString(exclude = {"tacos", "statusHistory"})
 @Table(name = "taco_orders")
 public class TacoOrder {
 
@@ -60,6 +62,10 @@ public class TacoOrder {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    /** ID курьера, который взял заказ в доставку (null, если ещё не взят) */
+    @Column(name = "delivery_person_id")
+    private Long deliveryPersonId;
 
     @Version
     private Long version; //Оптимистическая блокировка,

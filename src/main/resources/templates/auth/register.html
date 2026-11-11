@@ -5,36 +5,66 @@
   <title>Регистрация в Taco Cloud</title>
   <link th:href="@{/css/auth.css}" rel="stylesheet">
 </head>
-<body class="auth-body">
+<body class="auth-body register-body">
 
-<div class="auth-card">
-  <h2>Регистрация</h2>
+<div class="auth-card register-card">
 
-  <div class="error-box" th:if="${error}" th:text="${error}"></div>
+  <!-- Цветная шапка -->
+  <div class="register-header">
+    <h2>📝 Создать аккаунт</h2>
+    <p>Заполните форму, чтобы стать частью Taco Cloud</p>
+  </div>
 
-  <form th:action="@{/auth/register}" th:object="${registrationForm}" method="post">
-    <div class="form-group">
-      <label for="username">Ваше имя</label>
-      <input type="text" id="username" name="username" placeholder="Алексей" required autofocus />
+  <!-- Блок с ошибкой (если есть) -->
+  <div class="error-box" th:if="${error}" th:text="${error}" style="margin-top: 20px;"></div>
+
+  <form th:action="@{/auth/register}" th:object="${registrationForm}" method="post" style="margin-top: 20px;">
+
+    <div class="register-hint">
+      🔒 Все данные защищены и используются только для обработки заказов.
     </div>
 
     <div class="form-group">
-      <label for="phone">Номер телефона</label>
+      <label for="username">👤 Ваше имя</label>
+      <input type="text" id="username" name="username" placeholder="Например: Алексей" required autofocus />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">📞 Номер телефона</label>
       <input type="text" id="phone" name="phone" placeholder="+79991234567" required />
     </div>
 
     <div class="form-group">
-      <label for="password">Пароль</label>
-      <input type="password" id="password" name="password" placeholder="••••••••" required />
+      <label for="password">🔑 Пароль</label>
+      <div style="position: relative; display: flex; align-items: center;">
+        <input type="password" id="password" name="password" placeholder="Придумайте надёжный пароль" required
+               style="width: 100%; padding-right: 40px; box-sizing: border-box;" />
+        <button type="button" id="togglePassword"
+                style="position: absolute; right: 10px; background: none; border: none; cursor: pointer; font-size: 18px; padding: 0; color: #7f8c8d;">
+          👁️
+        </button>
+      </div>
     </div>
 
-    <button type="submit" class="auth-btn btn-blue">Создать аккаунт</button>
+    <button type="submit" class="auth-btn btn-register">🚀 Создать аккаунт</button>
   </form>
 
-  <div class="auth-links">
+  <div class="auth-links" style="margin-top: 25px;">
     Уже зарегистрированы? <a th:href="@{/auth/login}">Войти</a>
   </div>
 </div>
+
+<!-- Скрипт переключения видимости пароля -->
+<script>
+  const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#password');
+
+  togglePassword.addEventListener('click', function (e) {
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.textContent = type === 'password' ? '👁️' : '🙈';
+  });
+</script>
 
 </body>
 </html>

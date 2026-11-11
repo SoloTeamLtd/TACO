@@ -14,4 +14,10 @@ public interface TacoOrderRepository extends CrudRepository<TacoOrder, Long> {
 
     List<TacoOrder> findByStatus(OrderStatus status);
     Page<TacoOrder> findByUserId(Long currentUserId, Pageable pageable);
+
+    /** Найти все заказы, назначенные конкретному курьеру */
+    List<TacoOrder> findByDeliveryPersonId(Long deliveryPersonId);
+
+    /** Найти заказы конкретного курьера по статусу */
+    List<TacoOrder> findByDeliveryPersonIdAndStatus(Long deliveryPersonId, OrderStatus status);
 }
